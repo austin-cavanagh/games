@@ -1,6 +1,6 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Game, GamesObject } from '../../types';
-import fetchGameData from '../../functions/fetchGameData';
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Game, GamesObject } from "../../types";
+import fetchGameData from "../../functions/fetchGameData";
 
 type FormState = {
   isLoading: boolean;
@@ -8,6 +8,7 @@ type FormState = {
   currentPage: number;
   loadingProgress: number;
   gamesData: GamesObject;
+  totalGames: number;
   pageDisplay: Game[];
 };
 
@@ -17,58 +18,77 @@ const initialState: FormState = {
   currentPage: 1,
   loadingProgress: 0,
   gamesData: {},
+  totalGames: 0,
   pageDisplay: [],
 };
 
 function createPageDisplay(
   gameData: GamesObject,
   currentPage: number,
-  itemsPerPage: number = 12
-) {
+  itemsPerPage: number = 12,
+): Game[] {
   const gamesArray = Object.values(gameData);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedItems = gamesArray.slice(startIndex, endIndex);
-  console.log(paginatedItems);
-  return paginatedItems;
+
+  // filtering criteria
+
+  // sorting criteria
+  const sortedGames = gamesArray.sort((a, b) => a.Order - b.Order);
+
+  const paginatedGames = sortedGames.slice(startIndex, endIndex);
+  console.log(paginatedGames);
+  return paginatedGames;
 }
 
 const resultsSlice = createSlice({
-  name: 'results',
+  name: "results",
   initialState,
   reducers: {
     setLoadingProgress: (state, action: PayloadAction<number>) => {
       state.loadingProgress = action.payload;
     },
-    setPageDisplay: state => {
+    setPageDisplay: (state) => {
+      state.pageDisplay = createPageDisplay(state.gamesData, state.currentPage);
+    },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload;
       state.pageDisplay = createPageDisplay(state.gamesData, state.currentPage);
     },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-      .addCase(fetchGames.pending, state => {
+      .addCase(fetchGamesThunk.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
       })
-      .addCase(fetchGames.fulfilled, (state, action: PayloadAction<Game[]>) => {
-        state.isLoading = false;
-        state.gamesData = action.payload.reduce((acc, game) => {
-          acc[game.ID] = game;
-          return acc;
-        }, {} as GamesObject);
-      })
-      .addCase(fetchGames.rejected, state => {
+      .addCase(
+        fetchGamesThunk.fulfilled,
+        (state, action: PayloadAction<Game[]>) => {
+          state.isLoading = false;
+          state.gamesData = action.payload.reduce((acc, game) => {
+            acc[game.ID] = game;
+            return acc;
+          }, {} as GamesObject);
+          state.totalGames = Object.keys(state.gamesData).length;
+          state.pageDisplay = createPageDisplay(
+            state.gamesData,
+            state.currentPage,
+          );
+        },
+      )
+      .addCase(fetchGamesThunk.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       });
   },
 });
 
-export const fetchGames = createAsyncThunk<
+export const fetchGamesThunk = createAsyncThunk<
   Game[],
   void,
   { rejectValue: string }
->('results/fetchGames', async (_, { rejectWithValue, dispatch }) => {
+>("results/fetchGamesThunk", async (_, { rejectWithValue, dispatch }) => {
   try {
     const games = await fetchGameData(dispatch);
     return games;
@@ -76,10 +96,11 @@ export const fetchGames = createAsyncThunk<
     if (error instanceof Error) {
       return rejectWithValue(error.message);
     }
-    return rejectWithValue('An unknown error occurred');
+    return rejectWithValue("An unknown error occurred");
   }
 });
 
-export const { setLoadingProgress, setPageDisplay } = resultsSlice.actions;
+export const { setLoadingProgress, setPageDisplay, setCurrentPage } =
+  resultsSlice.actions;
 
 export default resultsSlice.reducer;
