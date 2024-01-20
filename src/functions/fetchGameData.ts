@@ -68,10 +68,7 @@ async function fetchGameData(dispatch: Dispatch): Promise<Game[]> {
   // Parse the text string as JSON
   const data: { data: Game[] } = JSON.parse(text) as { data: Game[] };
 
-  // Sort games array based on Order property
-  const sortedGames: Game[] = data.data.sort((a, b) => a.Order - b.Order);
-
-  return sortedGames;
+  return data.data;
 }
 
 export default fetchGameData;

@@ -62,3 +62,7 @@ export type Game = {
   SupportsVoice: boolean;
   TwitchGameId: number;
 };
+
+export type GamesObject = {
+  [key: string]: Game;
+};
