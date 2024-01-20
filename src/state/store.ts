@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
+import resultsReducer from './slices/resultsSlice';
 
 const store = configureStore({
   reducer: {
-    // reducers
+    results: resultsReducer,
   },
 });
 
