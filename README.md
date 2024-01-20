@@ -6,9 +6,7 @@
 
 ## Specs
 
-1. When a user navigates to the app for the first time, the app should download the games data (from games.json). While the game data is being fetched, an indication of progress should be displayed.
-
-<!-- how do I show a progress bar as the data is being fetched? -->
+<!-- 1. When a user navigates to the app for the first time, the app should download the games data (from games.json). While the game data is being fetched, an indication of progress should be displayed. -->
 
 2. Upon the completion of the games data download, a listing of games should be displayed on screen. The order of the listing should be determined by the `Order` field in the games data. Each item in the listing should display the following:
 
