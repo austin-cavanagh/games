@@ -3,7 +3,6 @@ import { AppDispatch, RootState } from '../../state/store';
 import { Game } from '../../types';
 import { setSelectedGame } from '../../state/slices/resultsSlice';
 import SelectedGameDisplay from './SelectedGameDisplay';
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/20/solid';
 
 function ResultsDisplay() {
   const { gamesArray, currentPage } = useSelector(
@@ -30,23 +29,40 @@ function ResultsDisplay() {
             onClick={() => handleSelectGame(game)}
             className="col-span-1 flex flex-col rounded-lg p-5 text-center shadow hover:cursor-pointer"
           >
-            {/* Game Image */}
+            {/* Image */}
             <img
               className="mx-auto h-20 w-20 flex-shrink-0 rounded-lg"
               src={`../../../images/${game.ID}.png`}
+              onError={e => {
+                e.currentTarget.src = '../../../images/no-image.png';
+              }}
               alt=""
             />
 
-            {/* Game Info */}
             <div className="mt-4 flex flex-1 flex-col space-y-2">
+              {/* Name */}
               <h3 className="text-sm font-medium text-gray-900">{game.Name}</h3>
 
               <div className="flex items-center justify-center gap-x-2">
-                <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                {/* Add-Ons Icon */}
+                <span
+                  className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${
+                    !game.SupportsAddons
+                      ? 'bg-red-50 text-red-700 ring-red-600/10'
+                      : 'bg-green-50 text-green-700 ring-green-600/20'
+                  }`}
+                >
                   Add-Ons
                 </span>
 
-                <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                {/* Voice Support Icon */}
+                <span
+                  className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${
+                    !game.SupportsVoice
+                      ? 'bg-red-50 text-red-700 ring-red-600/10'
+                      : 'bg-green-50 text-green-700 ring-green-600/20'
+                  }`}
+                >
                   Voice Support
                 </span>
               </div>

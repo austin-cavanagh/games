@@ -9,8 +9,6 @@ function SelectedGameDisplay() {
   const dispatch = useDispatch<AppDispatch>();
   const handleClose = () => dispatch(setSelectedGame(null));
 
-  console.log(selectedGame);
-
   return (
     <Transition.Root show={selectedGame !== null} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={handleClose}>
@@ -39,19 +37,46 @@ function SelectedGameDisplay() {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                 <div>
-                  {/* Game Image */}
+                  {/* Image */}
                   <img
                     className="mx-auto h-20 w-20 flex-shrink-0 rounded-lg"
                     src={`../../../images/${selectedGame?.ID}.png`}
                     alt=""
                   />
                   <div className="mt-3 text-center sm:mt-5">
+                    {/* Name */}
                     <Dialog.Title
                       as="h3"
                       className="text-base font-semibold leading-6 text-gray-900"
                     >
                       {selectedGame?.Name}
                     </Dialog.Title>
+
+                    <div className="flex items-center justify-center gap-x-2">
+                      {/* Add-Ons Icon */}
+                      <span
+                        className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${
+                          !selectedGame?.SupportsAddons
+                            ? 'bg-red-50 text-red-700 ring-red-600/10'
+                            : 'bg-green-50 text-green-700 ring-green-600/20'
+                        }`}
+                      >
+                        Add-Ons
+                      </span>
+
+                      {/* Voice Support Icon */}
+                      <span
+                        className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${
+                          !selectedGame?.SupportsVoice
+                            ? 'bg-red-50 text-red-700 ring-red-600/10'
+                            : 'bg-green-50 text-green-700 ring-green-600/20'
+                        }`}
+                      >
+                        Voice Support
+                      </span>
+                    </div>
+
+                    {/* Categories */}
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
                         {selectedGame?.CategorySections?.map(
@@ -59,6 +84,8 @@ function SelectedGameDisplay() {
                         ).join(', ')}
                       </p>
                     </div>
+
+                    {/* File Names */}
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
                         {selectedGame?.GameFiles?.map(
@@ -68,6 +95,7 @@ function SelectedGameDisplay() {
                     </div>
                   </div>
                 </div>
+
                 <div className="mt-5 sm:mt-6">
                   <button
                     type="button"
