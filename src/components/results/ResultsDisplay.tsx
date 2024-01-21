@@ -17,30 +17,44 @@ function ResultsDisplay() {
   const dispatch = useDispatch<AppDispatch>();
 
   // Placing filteredGames in a useState to lower amount of recalculations with renders
-  const [filteredGames, setFilteredGames] = useState<Game[]>(gamesArray);
+  const [filteredAndSortedGames, setFilteredAndSortedGames] =
+    useState<Game[]>(gamesArray);
 
   // Recalculaing array when the gamesArray or searchState change
   useEffect(() => {
-    const newFilteredGames = filterGames(gamesArray, searchState);
-    setFilteredGames(newFilteredGames);
-    // Also sending a dispatch to update currentPage state
-    dispatch(setTotalGames(newFilteredGames.length));
+    const filteredGames = filterGames(gamesArray, searchState);
+    const sortedGames = sortGames(filteredGames, searchState.sortDropdown);
+    setFilteredAndSortedGames(sortedGames);
 
-    console.log(newFilteredGames);
+    // Also sending a dispatch to update currentPage state
+    dispatch(setTotalGames(sortedGames.length));
+
+    console.log(sortedGames);
   }, [gamesArray, searchState, dispatch]);
 
-  // function sortGames(gamesArray: Game[], sortCriteria: string) {
-  //   //
-  // }
-
-  gamesArray.forEach(game => console.log(game.GameFiles.length));
+  function sortGames(gamesArray: Game[], sortCriteria: string) {
+    switch (sortCriteria) {
+      case 'Order':
+        return [...gamesArray].sort((a, b) => a.Order - b.Order);
+      case 'A-Z':
+        return [...gamesArray].sort((a, b) => a.Name.localeCompare(b.Name));
+      case 'Z-A':
+        return [...gamesArray].sort((a, b) => b.Name.localeCompare(a.Name));
+      case 'Game Files':
+        return [...gamesArray].sort(
+          (a, b) => b.GameFiles.length - a.GameFiles.length,
+        );
+      default:
+        return gamesArray;
+    }
+  }
 
   const handleSelectGame = (game: Game) => dispatch(setSelectedGame(game));
 
   const itemsPerPage = 12;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentGames = filteredGames.slice(startIndex, endIndex);
+  const currentGames = filteredAndSortedGames.slice(startIndex, endIndex);
 
   return (
     <>
