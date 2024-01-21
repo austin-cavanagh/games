@@ -1,6 +1,6 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Game, GamesObject } from "../../types";
-import fetchGameData from "../../functions/fetchGameData";
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { Game, GamesObject } from '../../types';
+import fetchGameData from '../../functions/fetchGameData';
 
 type ResultsState = {
   isLoading: boolean;
@@ -9,8 +9,8 @@ type ResultsState = {
   loadingProgress: number;
   gamesData: GamesObject;
   totalGames: number;
-  pageDisplay: Game[];
   gamesArray: Game[];
+  newGameData: Game[];
 };
 
 const initialState: ResultsState = {
@@ -20,42 +20,19 @@ const initialState: ResultsState = {
   loadingProgress: 0,
   gamesData: {},
   totalGames: 0,
-  pageDisplay: [],
   gamesArray: [],
+  newGameData: [],
 };
 
-function createPageDisplay(
-  gameData: GamesObject,
-  currentPage: number,
-  itemsPerPage: number = 12,
-): Game[] {
-  const gamesArray = Object.values(gameData);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  // filtering criteria
-
-  // sorting criteria
-  const sortedGames = gamesArray.sort((a, b) => a.Order - b.Order);
-
-  const paginatedGames = sortedGames.slice(startIndex, endIndex);
-  console.log(paginatedGames);
-  return paginatedGames;
-}
-
 const resultsSlice = createSlice({
-  name: "results",
+  name: 'results',
   initialState,
   reducers: {
     setLoadingProgress: (state, action: PayloadAction<number>) => {
       state.loadingProgress = action.payload;
     },
-    setPageDisplay: (state) => {
-      state.pageDisplay = createPageDisplay(state.gamesData, state.currentPage);
-    },
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload;
-      state.pageDisplay = createPageDisplay(state.gamesData, state.currentPage);
     },
   },
   extraReducers: (builder) => {
@@ -70,16 +47,11 @@ const resultsSlice = createSlice({
           state.isLoading = false;
           const gamesArray = action.payload;
           state.gamesArray = gamesArray;
-          console.log(gamesArray);
           state.gamesData = gamesArray.reduce((acc, game) => {
             acc[game.ID] = game;
             return acc;
           }, {} as GamesObject);
           state.totalGames = Object.keys(state.gamesData).length;
-          state.pageDisplay = createPageDisplay(
-            state.gamesData,
-            state.currentPage,
-          );
         },
       )
       .addCase(fetchGamesThunk.rejected, (state) => {
@@ -93,7 +65,7 @@ export const fetchGamesThunk = createAsyncThunk<
   Game[],
   void,
   { rejectValue: string }
->("results/fetchGamesThunk", async (_, { rejectWithValue, dispatch }) => {
+>('results/fetchGamesThunk', async (_, { rejectWithValue, dispatch }) => {
   try {
     const games = await fetchGameData(dispatch);
     return games;
@@ -101,11 +73,10 @@ export const fetchGamesThunk = createAsyncThunk<
     if (error instanceof Error) {
       return rejectWithValue(error.message);
     }
-    return rejectWithValue("An unknown error occurred");
+    return rejectWithValue('An unknown error occurred');
   }
 });
 
-export const { setLoadingProgress, setPageDisplay, setCurrentPage } =
-  resultsSlice.actions;
+export const { setLoadingProgress, setCurrentPage } = resultsSlice.actions;
 
 export default resultsSlice.reducer;

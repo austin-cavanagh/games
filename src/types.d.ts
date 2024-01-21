@@ -66,3 +66,9 @@ export type Game = {
 export type GamesObject = {
   [key: string]: Game;
 };
+
+export type DropdownOptions = {
+  id: number;
+  label: string;
+  query: string;
+};

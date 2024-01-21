@@ -2,17 +2,24 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
 
 function ResultsDisplay() {
-  const { pageDisplay } = useSelector((state: RootState) => state.results);
+  const { gamesArray, currentPage } = useSelector(
+    (state: RootState) => state.results,
+  );
+
+  const itemsPerPage = 12;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentGames = gamesArray.slice(startIndex, endIndex);
 
   return (
     <ul
       role="list"
-      className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full"
+      className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
     >
-      {pageDisplay.map(game => (
+      {currentGames.map((game) => (
         <li
           key={game.ID}
-          className="col-span-1 flex flex-col rounded-lg text-center shadow p-5"
+          className="col-span-1 flex flex-col rounded-lg p-5 text-center shadow"
         >
           {/* Game Image */}
           <img
@@ -22,7 +29,7 @@ function ResultsDisplay() {
           />
 
           {/* Game Info */}
-          <div className="flex flex-1 flex-col mt-4 space-y-1">
+          <div className="mt-4 flex flex-1 flex-col space-y-1">
             <h3 className="text-sm font-medium text-gray-900">{game.Name}</h3>
             <span className="text-sm text-gray-500">
               {`Supports Addons: ${game.SupportsAddons ? 'Yes' : 'No'}`}
@@ -38,8 +45,3 @@ function ResultsDisplay() {
 }
 
 export default ResultsDisplay;
-
-// - Game icon
-// - Game name
-// - Whether the game supports addons
-// - Whether the game supports voice
