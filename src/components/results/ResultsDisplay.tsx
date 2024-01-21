@@ -1,21 +1,46 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
 import { Game } from '../../types';
-import { setSelectedGame } from '../../state/slices/resultsSlice';
+import {
+  setSelectedGame,
+  setTotalGames,
+} from '../../state/slices/resultsSlice';
 import SelectedGameDisplay from './SelectedGameDisplay';
+import filterGames from '../../functions/filterGames';
+import { useEffect, useState } from 'react';
 
 function ResultsDisplay() {
   const { gamesArray, currentPage } = useSelector(
     (state: RootState) => state.results,
   );
+  const searchState = useSelector((state: RootState) => state.search);
   const dispatch = useDispatch<AppDispatch>();
+
+  // Placing filteredGames in a useState to lower amount of recalculations with renders
+  const [filteredGames, setFilteredGames] = useState<Game[]>(gamesArray);
+
+  // Recalculaing array when the gamesArray or searchState change
+  useEffect(() => {
+    const newFilteredGames = filterGames(gamesArray, searchState);
+    setFilteredGames(newFilteredGames);
+    // Also sending a dispatch to update currentPage state
+    dispatch(setTotalGames(newFilteredGames.length));
+
+    console.log(newFilteredGames);
+  }, [gamesArray, searchState, dispatch]);
+
+  // function sortGames(gamesArray: Game[], sortCriteria: string) {
+  //   //
+  // }
+
+  gamesArray.forEach(game => console.log(game.GameFiles.length));
 
   const handleSelectGame = (game: Game) => dispatch(setSelectedGame(game));
 
   const itemsPerPage = 12;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentGames = gamesArray.slice(startIndex, endIndex);
+  const currentGames = filteredGames.slice(startIndex, endIndex);
 
   return (
     <>

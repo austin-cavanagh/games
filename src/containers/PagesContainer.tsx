@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { AppDispatch, RootState } from "../state/store";
-import { setCurrentPage } from "../state/slices/resultsSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
+import { AppDispatch, RootState } from '../state/store';
+import { setCurrentPage } from '../state/slices/resultsSlice';
 
 function PagesContainer() {
   const { currentPage, totalGames } = useSelector(
@@ -39,8 +39,8 @@ function PagesContainer() {
           onClick={() => handlePageChange(i - currentPage)}
           className={`${
             i === currentPage
-              ? "pointer-events-none z-30 bg-indigo-600 text-white ring-indigo-600"
-              : "text-gray-900 ring-gray-300 hover:bg-gray-100"
+              ? 'pointer-events-none z-30 bg-indigo-600 text-white ring-indigo-600'
+              : 'text-gray-900 ring-gray-300 hover:bg-gray-100'
           } relative hidden w-10 items-center justify-center px-4 py-2 text-sm font-semibold ring-1 ring-inset focus:z-20 focus:outline-offset-0 focus-visible:outline-indigo-600 sm:inline-flex`}
           tabIndex={i === currentPage ? -1 : 0}
         >
@@ -56,15 +56,15 @@ function PagesContainer() {
     <div className="flex items-center justify-between">
       <div>
         <p className="text-sm text-gray-700">
-          Showing{" "}
+          Showing{' '}
           <span className="font-medium">
             {totalGames === 0 ? 0 : (currentPage - 1) * 12 + 1}
-          </span>{" "}
-          to{" "}
+          </span>{' '}
+          to{' '}
           <span className="font-medium">
             {totalGames === 0 ? 0 : Math.min(currentPage * 12, totalGames)}
-          </span>{" "}
-          of <span className="font-medium">{totalGames.toLocaleString()}</span>{" "}
+          </span>{' '}
+          of <span className="font-medium">{totalGames.toLocaleString()}</span>{' '}
           results
         </p>
       </div>

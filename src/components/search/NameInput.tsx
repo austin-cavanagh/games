@@ -25,7 +25,7 @@ function NameInput() {
   const filteredGames =
     query === ''
       ? gamesArray
-      : gamesArray.filter((game) => {
+      : gamesArray.filter(game => {
           return game.Name.toLowerCase().startsWith(query.toLowerCase());
         });
 
@@ -33,19 +33,19 @@ function NameInput() {
     <Combobox
       as="div"
       value={nameInput}
-      onChange={(input) => {
+      onChange={input => {
         handleInputChange(input);
       }}
     >
       <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">
-        Name
+        Search Game
       </Combobox.Label>
       <div className="relative mt-2">
         <Combobox.Input
           className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          onChange={(event) => handleInputChange(event.target.value)}
+          onChange={event => handleInputChange(event.target.value)}
           displayValue={() => nameInput}
-          placeholder="Filter based on game name"
+          placeholder="Filter based on game"
         />
         <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
           <ChevronUpDownIcon
@@ -56,7 +56,7 @@ function NameInput() {
 
         {filteredGames.length > 0 && (
           <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            {filteredGames.map((game) => (
+            {filteredGames.map(game => (
               <Combobox.Option
                 key={game.ID}
                 value={game.Name}

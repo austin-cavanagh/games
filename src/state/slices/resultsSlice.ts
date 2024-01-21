@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Game, GamesObject } from '../../types';
+import { Game } from '../../types';
 import fetchGameData from '../../functions/fetchGameData';
 
 type ResultsState = {
@@ -7,7 +7,6 @@ type ResultsState = {
   isError: boolean;
   currentPage: number;
   loadingProgress: number;
-  gamesData: GamesObject;
   totalGames: number;
   gamesArray: Game[];
   newGameData: Game[];
@@ -19,7 +18,6 @@ const initialState: ResultsState = {
   isError: false,
   currentPage: 1,
   loadingProgress: 0,
-  gamesData: {},
   totalGames: 0,
   gamesArray: [],
   newGameData: [],
@@ -39,6 +37,9 @@ const resultsSlice = createSlice({
     setSelectedGame: (state, action: PayloadAction<Game | null>) => {
       state.selectedGame = action.payload;
     },
+    setTotalGames: (state, action: PayloadAction<number>) => {
+      state.totalGames = action.payload;
+    },
   },
   extraReducers: builder => {
     builder
@@ -50,13 +51,7 @@ const resultsSlice = createSlice({
         fetchGamesThunk.fulfilled,
         (state, action: PayloadAction<Game[]>) => {
           state.isLoading = false;
-          const gamesArray = action.payload;
-          state.gamesArray = gamesArray;
-          state.gamesData = gamesArray.reduce((acc, game) => {
-            acc[game.ID] = game;
-            return acc;
-          }, {} as GamesObject);
-          state.totalGames = Object.keys(state.gamesData).length;
+          state.gamesArray = action.payload;
         },
       )
       .addCase(fetchGamesThunk.rejected, state => {
@@ -82,7 +77,11 @@ export const fetchGamesThunk = createAsyncThunk<
   }
 });
 
-export const { setLoadingProgress, setCurrentPage, setSelectedGame } =
-  resultsSlice.actions;
+export const {
+  setLoadingProgress,
+  setCurrentPage,
+  setSelectedGame,
+  setTotalGames,
+} = resultsSlice.actions;
 
 export default resultsSlice.reducer;

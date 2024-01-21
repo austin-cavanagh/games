@@ -37,7 +37,7 @@ async function fetchGameData(dispatch: Dispatch): Promise<Game[]> {
     // Add new chunk and calculate the total loaded data
     loaded += value.byteLength;
     const progress: number = Math.round(
-      (loaded / parseInt(contentLength)) * 100
+      (loaded / parseInt(contentLength)) * 100,
     );
 
     // Dispatch action to update the loadingProgress state
@@ -67,8 +67,9 @@ async function fetchGameData(dispatch: Dispatch): Promise<Game[]> {
 
   // Parse the text string as JSON
   const data: { data: Game[] } = JSON.parse(text) as { data: Game[] };
+  const gamesArray: Game[] = data.data;
 
-  return data.data;
+  return gamesArray;
 }
 
 export default fetchGameData;

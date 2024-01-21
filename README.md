@@ -58,3 +58,15 @@ game.CategorySection
 <!-- include pagination or infinite loading -->
 
 <!-- for searching use with with preview view from the command palettes -->
+
+<!-- To Do -->
+<!-- implement sorting -->
+<!-- implement game details on click -->
+<!-- prevent picture from going blank on exit -->
+<!-- implement debouncing -->
+
+<!-- A-Z -->
+<!-- Z-A -->
+<!-- GameFiles -->
+
+<!-- make sure the page numbers don't go to the top of the page -->
