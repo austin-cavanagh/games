@@ -5,7 +5,7 @@ type SearchState = {
   nameInput: string;
   addonsDropdown: DropdownOptions;
   voiceDropdown: DropdownOptions;
-  sortByDropDown: string;
+  sortByValue: string;
 };
 
 const initialState: SearchState = {
@@ -20,7 +20,7 @@ const initialState: SearchState = {
     label: 'Filter on voice support',
     query: '',
   },
-  sortByDropDown: '',
+  sortByValue: 'Order',
 };
 
 const searchSlice = createSlice({
@@ -36,10 +36,17 @@ const searchSlice = createSlice({
     setVoiceDropdown: (state, action: PayloadAction<DropdownOptions>) => {
       state.voiceDropdown = action.payload;
     },
+    setSortByValue: (state, action: PayloadAction<string>) => {
+      state.sortByValue = action.payload;
+    },
   },
 });
 
-export const { setNameInput, setAddonsDropdown, setVoiceDropdown } =
-  searchSlice.actions;
+export const {
+  setNameInput,
+  setAddonsDropdown,
+  setVoiceDropdown,
+  setSortByValue,
+} = searchSlice.actions;
 
 export default searchSlice.reducer;
