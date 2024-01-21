@@ -1,6 +1,6 @@
 import AddonsDropdown from '../components/search/AddonsDropdown';
 import NameInput from '../components/search/NameInput';
-import SortByDropdown from '../components/search/SortByDropdown';
+import SortDropdown from '../components/search/SortDropdown';
 import VoiceSupportDropdown from '../components/search/VoiceDropdown';
 
 function SearchContainer() {
@@ -17,7 +17,7 @@ function SearchContainer() {
           <VoiceSupportDropdown />
         </div>
         <div className="w-full md:w-auto md:flex-initial">
-          <SortByDropdown />
+          <SortDropdown />
         </div>
       </div>
     </div>

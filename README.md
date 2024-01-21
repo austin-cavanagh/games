@@ -10,7 +10,16 @@
 
 <!-- 2. Upon the completion of the games data download, a listing of games should be displayed on screen. The order of the listing should be determined by the `Order` field in the games data. Each item in the listing should display the following: -->
 
+<!-- - Game icon
+- Game name
+- Whether the game supports addons
+- Whether the game supports voice -->
+
 <!-- 3. When a user clicks on an item in the listing, the app should display a view which shows the details of the game. The game detail view should include all the data from the item in the listing and the following additions: -->
+
+<!-- - Game slug
+- List of game file names
+- List of category section names -->
 
 <!-- 4. Implement game search functionality -->
 
@@ -31,19 +40,8 @@
 - Implement functionality to periodically re-download the game data file (in case it has updated)
 <!-- - Implement sorting and filtering -->
 
-<!-- for searching use with with preview view from the command palettes -->
-
 <!-- To Do -->
-<!-- implement sorting -->
-<!-- implement game details on click -->
-<!-- prevent picture from going blank on exit -->
+
 <!-- implement debouncing -->
 <!-- screen that shows no results -->
-
-<!-- A-Z -->
-<!-- Z-A -->
-<!-- GameFiles -->
-
-<!-- make sure the page numbers don't go to the top of the page -->
-<!-- dropdown options need to match options from the filtering function  -->
-<!-- tab icon -->
+<!-- results section should center itself in area -->

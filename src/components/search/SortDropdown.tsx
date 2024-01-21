@@ -8,13 +8,12 @@ import { setSortDropdown } from '../../state/slices/searchSlice';
 
 const sortByOptions = ['Order', 'A-Z', 'Z-A', 'Game Files'];
 
-function SortByDropdown() {
+function SortDropdown() {
   const { sortDropdown } = useSelector((state: RootState) => state.search);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleChange = (input: string) => {
     dispatch(setSortDropdown(input));
-    console.log(sortDropdown);
   };
 
   return (
@@ -86,4 +85,4 @@ function SortByDropdown() {
   );
 }
 
-export default SortByDropdown;
+export default SortDropdown;

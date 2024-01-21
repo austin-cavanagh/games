@@ -10,7 +10,7 @@ import filterGames from '../../functions/filterGames';
 import { useEffect, useState } from 'react';
 
 function ResultsDisplay() {
-  const { gamesArray, currentPage } = useSelector(
+  const { gamesArray, currentPage, selectedGame } = useSelector(
     (state: RootState) => state.results,
   );
   const searchState = useSelector((state: RootState) => state.search);
@@ -29,7 +29,7 @@ function ResultsDisplay() {
     // Also sending a dispatch to update currentPage state
     dispatch(setTotalGames(sortedGames.length));
 
-    console.log(sortedGames);
+    sortedGames.forEach(game => console.log(game.CategorySections.length));
   }, [gamesArray, searchState, dispatch]);
 
   function sortGames(gamesArray: Game[], sortCriteria: string) {
@@ -110,7 +110,7 @@ function ResultsDisplay() {
         ))}
       </ul>
 
-      <SelectedGameDisplay />
+      {selectedGame && <SelectedGameDisplay />}
     </>
   );
 }
