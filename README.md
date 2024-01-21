@@ -31,8 +31,6 @@
 - Implement functionality to periodically re-download the game data file (in case it has updated)
 <!-- - Implement sorting and filtering -->
 
-<!-- include pagination or infinite loading -->
-
 <!-- for searching use with with preview view from the command palettes -->
 
 <!-- To Do -->
@@ -40,6 +38,7 @@
 <!-- implement game details on click -->
 <!-- prevent picture from going blank on exit -->
 <!-- implement debouncing -->
+<!-- screen that shows no results -->
 
 <!-- A-Z -->
 <!-- Z-A -->
