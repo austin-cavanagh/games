@@ -45,3 +45,7 @@
 <!-- implement debouncing -->
 <!-- screen that shows no results -->
 <!-- results section should center itself in area -->
+<!-- highlight games as you hover or tab over them? -->
+<!-- resolve issues with chrome -->
+<!-- loading progress bar -->
+<!-- changing pages does not send user to top -->

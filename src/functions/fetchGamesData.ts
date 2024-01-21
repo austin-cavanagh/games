@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { setLoadingProgress } from '../state/slices/resultsSlice';
 import { Game } from '../types';
 
-async function fetchGameData(dispatch: Dispatch): Promise<Game[]> {
+async function fetchGamesData(dispatch: Dispatch): Promise<Game[]> {
   const response: Response = await fetch('../../../games.json');
 
   if (!response.ok) {
@@ -72,4 +72,4 @@ async function fetchGameData(dispatch: Dispatch): Promise<Game[]> {
   return gamesArray;
 }
 
-export default fetchGameData;
+export default fetchGamesData;

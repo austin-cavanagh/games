@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Game } from '../../types';
-import fetchGameData from '../../functions/fetchGameData';
+import { Game, UpdateGame } from '../../types';
+import fetchGamesData from '../../functions/fetchGamesData';
 
 type ResultsState = {
   isLoading: boolean;
@@ -8,9 +8,10 @@ type ResultsState = {
   currentPage: number;
   loadingProgress: number;
   totalGames: number;
-  gamesArray: Game[];
   newGameData: Game[];
   selectedGame: Game | null;
+  gamesArray: Game[];
+  updatesArray: UpdateGame[];
 };
 
 const initialState: ResultsState = {
@@ -19,9 +20,10 @@ const initialState: ResultsState = {
   currentPage: 1,
   loadingProgress: 0,
   totalGames: 0,
-  gamesArray: [],
   newGameData: [],
   selectedGame: null,
+  gamesArray: [],
+  updatesArray: [],
 };
 
 const resultsSlice = createSlice({
@@ -67,7 +69,7 @@ export const fetchGamesThunk = createAsyncThunk<
   { rejectValue: string }
 >('results/fetchGamesThunk', async (_, { rejectWithValue, dispatch }) => {
   try {
-    const games = await fetchGameData(dispatch);
+    const games = await fetchGamesData(dispatch);
     return games;
   } catch (error) {
     if (error instanceof Error) {

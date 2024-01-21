@@ -5,7 +5,7 @@ import {
   setSelectedGame,
   setTotalGames,
 } from '../../state/slices/resultsSlice';
-import SelectedGameDisplay from './SelectedGameDisplay';
+import SelectedGameDisplay from '../popups/SelectedGameDisplay';
 import filterGames from '../../functions/filterGames';
 import { useEffect, useState } from 'react';
 
@@ -29,7 +29,7 @@ function ResultsDisplay() {
     // Also sending a dispatch to update currentPage state
     dispatch(setTotalGames(sortedGames.length));
 
-    sortedGames.forEach(game => console.log(game.CategorySections.length));
+    // sortedGames.forEach(game => console.log(game.CategorySections.length));
   }, [gamesArray, searchState, dispatch]);
 
   function sortGames(gamesArray: Game[], sortCriteria: string) {

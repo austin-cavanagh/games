@@ -63,6 +63,11 @@ export type Game = {
   TwitchGameId: number;
 };
 
+export type UpdateGame = {
+  type: string;
+  data: Game;
+};
+
 export type GamesObject = {
   [key: string]: Game;
 };
