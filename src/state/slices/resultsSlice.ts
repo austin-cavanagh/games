@@ -11,6 +11,7 @@ type ResultsState = {
   totalGames: number;
   gamesArray: Game[];
   newGameData: Game[];
+  selectedGame: Game | null;
 };
 
 const initialState: ResultsState = {
@@ -22,6 +23,7 @@ const initialState: ResultsState = {
   totalGames: 0,
   gamesArray: [],
   newGameData: [],
+  selectedGame: null,
 };
 
 const resultsSlice = createSlice({
@@ -34,10 +36,13 @@ const resultsSlice = createSlice({
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload;
     },
+    setSelectedGame: (state, action: PayloadAction<Game | null>) => {
+      state.selectedGame = action.payload;
+    },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchGamesThunk.pending, (state) => {
+      .addCase(fetchGamesThunk.pending, state => {
         state.isLoading = true;
         state.isError = false;
       })
@@ -54,7 +59,7 @@ const resultsSlice = createSlice({
           state.totalGames = Object.keys(state.gamesData).length;
         },
       )
-      .addCase(fetchGamesThunk.rejected, (state) => {
+      .addCase(fetchGamesThunk.rejected, state => {
         state.isLoading = false;
         state.isError = true;
       });
@@ -77,6 +82,7 @@ export const fetchGamesThunk = createAsyncThunk<
   }
 });
 
-export const { setLoadingProgress, setCurrentPage } = resultsSlice.actions;
+export const { setLoadingProgress, setCurrentPage, setSelectedGame } =
+  resultsSlice.actions;
 
 export default resultsSlice.reducer;

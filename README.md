@@ -15,6 +15,15 @@
 - Whether the game supports addons
 - Whether the game supports voice -->
 
+game.ID
+game.Name
+game.SupportsAddons
+game.SupportsVoice
+
+game.Slug
+game.GameFiles
+game.CategorySection
+
 3. When a user clicks on an item in the listing, the app should display a view which shows the details of the game. The game detail view should include all the data from the item in the listing and the following additions:
 
 - Game slug
