@@ -1,19 +1,26 @@
 import { useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Combobox } from "@headlessui/react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../state/store";
-// import { Game } from "../../types";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../state/store";
+import { setNameInput } from "../../state/slices/searchSlice";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-function SearchInput() {
-  const [query, setQuery] = useState("");
-  const [selectedGame, setSelectedGame] = useState("");
+function NameInput() {
+  const [query, setQuery] = useState<string>("");
 
   const { gamesArray } = useSelector((state: RootState) => state.results);
+  const { nameInput } = useSelector((state: RootState) => state.search);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleInputChange = (name: string) => {
+    setQuery(name);
+    dispatch(setNameInput(name));
+  };
 
   const filteredGames =
     query === ""
@@ -25,8 +32,10 @@ function SearchInput() {
   return (
     <Combobox
       as="div"
-      value={selectedGame}
-      onChange={(gameName) => setSelectedGame(gameName)}
+      value={nameInput}
+      onChange={(input) => {
+        handleInputChange(input);
+      }}
     >
       <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">
         Search Game
@@ -34,8 +43,8 @@ function SearchInput() {
       <div className="relative mt-2">
         <Combobox.Input
           className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          onChange={(event) => setQuery(event.target.value)}
-          displayValue={() => selectedGame}
+          onChange={(event) => handleInputChange(event.target.value)}
+          displayValue={() => nameInput}
           placeholder="Enter game name"
         />
         <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
@@ -90,4 +99,4 @@ function SearchInput() {
   );
 }
 
-export default SearchInput;
+export default NameInput;

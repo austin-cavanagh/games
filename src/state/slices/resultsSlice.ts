@@ -2,7 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Game, GamesObject } from "../../types";
 import fetchGameData from "../../functions/fetchGameData";
 
-type FormState = {
+type ResultsState = {
   isLoading: boolean;
   isError: boolean;
   currentPage: number;
@@ -13,7 +13,7 @@ type FormState = {
   gamesArray: Game[];
 };
 
-const initialState: FormState = {
+const initialState: ResultsState = {
   isLoading: true,
   isError: false,
   currentPage: 1,

@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../state/store";
 import { useEffect } from "react";
 import { setPageDisplay } from "../state/slices/resultsSlice";
-import SearchInput from "../components/search/SearchInput";
+import SearchInput from "../components/search/NameInput";
 
 function SearchContainer() {
   const dispatch = useDispatch<AppDispatch>();
