@@ -8,12 +8,12 @@
 
 <!-- 1. When a user navigates to the app for the first time, the app should download the games data (from games.json). While the game data is being fetched, an indication of progress should be displayed. -->
 
-2. Upon the completion of the games data download, a listing of games should be displayed on screen. The order of the listing should be determined by the `Order` field in the games data. Each item in the listing should display the following:
+<!-- 2. Upon the completion of the games data download, a listing of games should be displayed on screen. The order of the listing should be determined by the `Order` field in the games data. Each item in the listing should display the following: -->
 
-- Game icon
+<!-- - Game icon
 - Game name
 - Whether the game supports addons
-- Whether the game supports voice
+- Whether the game supports voice -->
 
 3. When a user clicks on an item in the listing, the app should display a view which shows the details of the game. The game detail view should include all the data from the item in the listing and the following additions:
 
@@ -22,7 +22,13 @@
 - List of category section names
 
 4. Implement game search functionality
+
+<!-- search bar -->
+
 5. Implement sorting
+
+<!-- alphabetical -->
+<!-- reverse alphabetical -->
 
 **Please append a brief writeup explaining your technical design decisions**
 

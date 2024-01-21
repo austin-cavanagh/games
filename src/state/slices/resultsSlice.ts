@@ -10,6 +10,7 @@ type FormState = {
   gamesData: GamesObject;
   totalGames: number;
   pageDisplay: Game[];
+  gamesArray: Game[];
 };
 
 const initialState: FormState = {
@@ -20,6 +21,7 @@ const initialState: FormState = {
   gamesData: {},
   totalGames: 0,
   pageDisplay: [],
+  gamesArray: [],
 };
 
 function createPageDisplay(
@@ -66,7 +68,10 @@ const resultsSlice = createSlice({
         fetchGamesThunk.fulfilled,
         (state, action: PayloadAction<Game[]>) => {
           state.isLoading = false;
-          state.gamesData = action.payload.reduce((acc, game) => {
+          const gamesArray = action.payload;
+          state.gamesArray = gamesArray;
+          console.log(gamesArray);
+          state.gamesData = gamesArray.reduce((acc, game) => {
             acc[game.ID] = game;
             return acc;
           }, {} as GamesObject);

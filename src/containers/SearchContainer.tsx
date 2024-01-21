@@ -1,7 +1,8 @@
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../state/store';
-import { useEffect } from 'react';
-import { setPageDisplay } from '../state/slices/resultsSlice';
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../state/store";
+import { useEffect } from "react";
+import { setPageDisplay } from "../state/slices/resultsSlice";
+import SearchInput from "../components/search/SearchInput";
 
 function SearchContainer() {
   const dispatch = useDispatch<AppDispatch>();
@@ -10,7 +11,11 @@ function SearchContainer() {
     dispatch(setPageDisplay());
   }, [dispatch]);
 
-  return <h1>Search Container</h1>;
+  return (
+    <div>
+      <SearchInput />
+    </div>
+  );
 }
 
 export default SearchContainer;

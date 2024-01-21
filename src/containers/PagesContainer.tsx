@@ -42,6 +42,7 @@ function PagesContainer() {
               ? "pointer-events-none z-30 bg-indigo-600 text-white ring-indigo-600"
               : "text-gray-900 ring-gray-300 hover:bg-gray-100"
           } relative hidden w-10 items-center justify-center px-4 py-2 text-sm font-semibold ring-1 ring-inset focus:z-20 focus:outline-offset-0 focus-visible:outline-indigo-600 sm:inline-flex`}
+          tabIndex={i === currentPage ? -1 : 0}
         >
           {i}
         </a>,
