@@ -6,7 +6,7 @@ import ResultsDisplay from '../components/results/ResultsDisplay';
 
 function ResultsContainer() {
   const { isLoading, isError } = useSelector(
-    (state: RootState) => state.results
+    (state: RootState) => state.results,
   );
 
   const useCenteredLayout = isError || isLoading;
@@ -14,7 +14,7 @@ function ResultsContainer() {
   return (
     <div
       className={`w-full ${
-        useCenteredLayout ? 'flex justify-center items-center' : ''
+        useCenteredLayout ? 'flex items-center justify-center' : ''
       }`}
     >
       {isError && <ErrorDisplay />}

@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Game, GameUpdate } from '../../types';
+import { Game } from '../../types';
 import fetchGamesData from '../../functions/fetchGamesData';
-import trackGameUpdates from '../../functions/trackGameUpdates';
+import isEqual from 'lodash.isequal';
 
 type ResultsState = {
   isLoading: boolean;
@@ -11,8 +11,7 @@ type ResultsState = {
   totalGames: number;
   selectedGame: Game | null;
   gamesArray: Game[];
-  updatesArray: GameUpdate[];
-  promptUpdates: boolean;
+  promptUpdate: boolean;
 };
 
 const initialState: ResultsState = {
@@ -23,8 +22,7 @@ const initialState: ResultsState = {
   totalGames: 0,
   selectedGame: null,
   gamesArray: [],
-  updatesArray: [],
-  promptUpdates: true,
+  promptUpdate: false,
 };
 
 const resultsSlice = createSlice({
@@ -44,59 +42,32 @@ const resultsSlice = createSlice({
       state.totalGames = action.payload;
     },
     hidePromptUpdates: state => {
-      state.promptUpdates = false;
+      state.promptUpdate = false;
     },
-    updateGamesArray: state => {
-      const updatesArray = state.updatesArray;
-      const gamesArray = state.gamesArray;
-      const newGamesArray = [...gamesArray];
-
-      updatesArray.forEach(update => {
-        if (update.type === 'added') {
-          oldGamesArray.push(update.data);
-        }
-
-        if (update.type === 'removed') {
-          state.oldGamesArray = oldGamesArray.filter(game => {
-            return game.ID !== update.data.ID;
-          });
-        }
-
-        if (update.type === 'updated') {
-          state;
-        }
-      });
-
-      state.gamesArray = //
-        state.updatesArray = [];
+    clearGamesArray: state => {
+      state.gamesArray = [];
     },
   },
   extraReducers: builder => {
     builder
       .addCase(fetchGamesThunk.pending, state => {
-        state.isLoading = true;
+        if (state.gamesArray.length === 0) state.isLoading = true;
         state.isError = false;
       })
       .addCase(
         fetchGamesThunk.fulfilled,
         (state, action: PayloadAction<Game[]>) => {
-          state.isLoading = false;
-          const fetchedGamesArray = action.payload;
-
           if (state.gamesArray.length === 0) {
-            state.gamesArray = fetchedGamesArray;
+            state.isLoading = false;
+            state.gamesArray = action.payload;
             return;
           }
 
-          const tempGamesArray: Game[] = [...state.gamesArray];
-          const newUpdatesArray: GameUpdate[] = trackGameUpdates(
-            tempGamesArray,
-            fetchedGamesArray,
-          );
+          const gamesArray = state.gamesArray;
+          const newGamesArray = action.payload;
 
-          // Set updatesArray state to equal newUpdatesArray
-          state.updatesArray = newUpdatesArray;
-          state.promptUpdates = true;
+          const noUpdates = isEqual(gamesArray, newGamesArray);
+          if (noUpdates) state.promptUpdate = true;
         },
       )
       .addCase(fetchGamesThunk.rejected, state => {
@@ -128,6 +99,7 @@ export const {
   setSelectedGame,
   setTotalGames,
   hidePromptUpdates,
+  clearGamesArray,
 } = resultsSlice.actions;
 
 export default resultsSlice.reducer;

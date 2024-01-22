@@ -43,10 +43,12 @@
 <!-- To Do -->
 
 <!-- implement debouncing -->
-<!-- screen that shows no results -->
 <!-- error screen that shows error -->
-<!-- multiple requests on error -->
 <!-- results section should center itself in area -->
+
+<!-- screen that shows no results -->
+<!-- multiple requests on error -->
+
 <!-- highlight games as you hover or tab over them? -->
 <!-- resolve issues with chrome -->
 <!-- loading progress bar -->

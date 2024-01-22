@@ -8,11 +8,11 @@ import { fetchGamesThunk } from './state/slices/resultsSlice';
 import UpdateGamesPopup from './components/popups/UpdateGamesPopup';
 
 function App() {
-  const { promptUpdates } = useSelector((state: RootState) => state.results);
+  const { promptUpdate } = useSelector((state: RootState) => state.results);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const updateDataInterval = 1800000;
+    const updateDataInterval = 5000000;
 
     dispatch(fetchGamesThunk());
 
@@ -27,7 +27,7 @@ function App() {
 
   return (
     <>
-      <div className="mx-auto flex min-h-screen max-w-7xl flex-col px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4">
+      <div className="mx-auto flex min-h-screen max-w-7xl flex-col justify-between px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4">
         <section className="px-4 py-4 sm:px-6 sm:py-5">
           <SearchContainer />
         </section>
@@ -39,7 +39,7 @@ function App() {
         </section>
       </div>
 
-      {promptUpdates && <UpdateGamesPopup />}
+      {promptUpdate && <UpdateGamesPopup />}
     </>
   );
 }

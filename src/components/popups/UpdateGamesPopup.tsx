@@ -3,16 +3,20 @@ import { Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
-import { hidePromptUpdates } from '../../state/slices/resultsSlice';
+import {
+  clearGamesArray,
+  fetchGamesThunk,
+  hidePromptUpdates,
+} from '../../state/slices/resultsSlice';
 
 function UpdateGamesNotification() {
-  const { promptUpdates, updatesArray } = useSelector(
-    (state: RootState) => state.results,
-  );
+  const { promptUpdate } = useSelector((state: RootState) => state.results);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleUpdate = () => {
     dispatch(hidePromptUpdates());
+    dispatch(clearGamesArray());
+    dispatch(fetchGamesThunk());
   };
 
   const handleRemind = () => {
@@ -24,7 +28,7 @@ function UpdateGamesNotification() {
       <div className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6">
         <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
           <Transition
-            show={promptUpdates}
+            show={promptUpdate}
             as={Fragment}
             enter="transform ease-out duration-300 transition"
             enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
@@ -38,10 +42,10 @@ function UpdateGamesNotification() {
                 <div className="flex items-start">
                   <div className="ml-3 w-0 flex-1">
                     <p className="text-sm font-medium text-gray-900">
-                      Game Updates Detected
+                      Notification
                     </p>
                     <p className="mt-1 text-sm text-gray-500">
-                      {`${updatesArray.length} ${updatesArray.length === 1 ? 'game has' : 'games have'} changes since your last update`}
+                      Game data has changed since your last update
                     </p>
                     <div className="mt-4 flex">
                       <button
