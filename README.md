@@ -42,9 +42,8 @@
 
 <!-- To Do -->
 
-<!-- loading progress bar -->
-
 <!-- have success or error notificaiton popup after download -->
 <!-- multiple requests on error -->
 <!-- resolve issues with chrome? -->
 <!-- changing pages does not send user to top -->
+<!-- maybe change the background to a light gray -->

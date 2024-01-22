@@ -52,7 +52,6 @@ function ResultsDisplay() {
             onClick={() => handleSelectGame(game)}
             className="col-span-1 flex flex-col justify-around rounded-lg p-5 text-center shadow hover:cursor-pointer"
           >
-            {/* <div className="flex flex-1 flex-col space-y-2"> */}
             {/* Image */}
             <img
               className="mx-auto h-16 w-16 flex-shrink-0 rounded-lg"
@@ -89,7 +88,6 @@ function ResultsDisplay() {
                 Voice Support
               </span>
             </div>
-            {/* </div> */}
           </li>
         ))}
       </ul>

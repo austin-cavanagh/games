@@ -19,9 +19,12 @@ function NameInput() {
         handleInputChange(input);
       }}
     >
-      <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">
-        Search Game
-      </Combobox.Label>
+      <label
+        htmlFor="maxPrice"
+        className="block text-sm font-medium leading-6 text-gray-900"
+      >
+        Game Name
+      </label>
       <div className="relative mt-2">
         <Combobox.Input
           className="w-full rounded-md border-0 bg-white px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
