@@ -5,6 +5,7 @@ import configureStore from 'redux-mock-store';
 import VoiceDropdown from './VoiceDropdown';
 import { RootState } from '../../state/store';
 import '@testing-library/jest-dom';
+// import { setVoiceDropdown } from '../../state/slices/searchSlice';
 
 const mockStore = configureStore<Partial<RootState>>();
 
@@ -12,14 +13,16 @@ const options: string[] = ['-', 'Yes', 'No'];
 
 describe('VoiceDropdown', () => {
   it('renders the dropdown with default value correctly', () => {
-    const store = mockStore({
+    const initialState = {
       search: {
         nameInput: '',
         addonsDropdown: '-',
         voiceDropdown: '-',
         sortDropdown: 'Order',
       },
-    });
+    };
+
+    const store = mockStore(initialState);
 
     render(
       <Provider store={store}>
@@ -34,14 +37,16 @@ describe('VoiceDropdown', () => {
 
   options.forEach(option => {
     it(`allows the user to select option "${option}"`, async () => {
-      const store = mockStore({
+      const initialState = {
         search: {
           nameInput: '',
           addonsDropdown: option,
           voiceDropdown: '-',
           sortDropdown: 'Order',
         },
-      });
+      };
+
+      const store = mockStore(initialState);
 
       render(
         <Provider store={store}>
@@ -55,4 +60,29 @@ describe('VoiceDropdown', () => {
       expect(screen.getByText(option)).toBeInTheDocument();
     });
   });
+
+  // it('dispatches setVoiceDropdown when dropdown input changes', () => {
+  //   const initialState = {
+  //     search: {
+  //       nameInput: '',
+  //       addonsDropdown: '-',
+  //       voiceDropdown: '-',
+  //       sortDropdown: 'Order',
+  //     },
+  //   };
+
+  //   const store = mockStore(initialState);
+  //   store.dispatch = jest.fn();
+
+  //   render(
+  //     <Provider store={store}>
+  //       <VoiceDropdown />
+  //     </Provider>,
+  //   );
+
+  //   const dropdown = screen.getByTestId('voice-dropdown');
+  //   fireEvent.change(dropdown, { target: { value: 'Yes' } });
+
+  //   expect(store.dispatch).toHaveBeenCalledWith(setVoiceDropdown('Yes'));
+  // });
 });

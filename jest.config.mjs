@@ -1,3 +1,8 @@
+// Use dynamic import to load the polyfill
+import('text-encoding').then(({ TextDecoder }) => {
+  global.TextDecoder = TextDecoder;
+});
+
 export default {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
@@ -10,5 +15,5 @@ export default {
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
   testPathIgnorePatterns: ['/node_modules/', '<rootDir>/cors-anywhere/'],
-  setupFilesAfterEnv: ['@testing-library/jest-dom'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom', '<rootDir>/jest.setup.js'],
 };

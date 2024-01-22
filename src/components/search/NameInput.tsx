@@ -2,23 +2,14 @@ import { Combobox } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
 import { setNameInput } from '../../state/slices/searchSlice';
-import { debounce } from 'lodash';
 
 function NameInput() {
   const { nameInput } = useSelector((state: RootState) => state.search);
   const dispatch = useDispatch<AppDispatch>();
-  const handleInputChange = debounce((name: string) => {
-    dispatch(setNameInput(name));
-  }, 300);
+  const handleInputChange = (name: string) => dispatch(setNameInput(name));
 
   return (
-    <Combobox
-      as="div"
-      value={nameInput}
-      onChange={input => {
-        handleInputChange(input);
-      }}
-    >
+    <Combobox as="div" value={nameInput}>
       <label
         htmlFor="maxPrice"
         className="block text-sm font-medium leading-6 text-gray-900"

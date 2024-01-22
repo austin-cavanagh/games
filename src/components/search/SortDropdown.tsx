@@ -23,7 +23,7 @@ function SortDropdown() {
     >
       {({ open }) => (
         <>
-          <div className="relative">
+          <div className="relative flex justify-end">
             <div className="inline-flex divide-x divide-indigo-700 rounded-md shadow-sm">
               <div className="inline-flex items-center gap-x-1.5 rounded-l-md bg-indigo-600 px-3 py-2 text-white shadow-sm">
                 <p className="text-sm font-semibold">{`Sort By: ${sortDropdown}`}</p>

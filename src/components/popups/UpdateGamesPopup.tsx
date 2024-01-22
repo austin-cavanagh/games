@@ -9,7 +9,7 @@ import {
   hidePromptUpdates,
 } from '../../state/slices/resultsSlice';
 
-function UpdateGamesNotification() {
+function UpdateGamePopup() {
   const { promptUpdate } = useSelector((state: RootState) => state.results);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -83,4 +83,4 @@ function UpdateGamesNotification() {
   );
 }
 
-export default UpdateGamesNotification;
+export default UpdateGamePopup;

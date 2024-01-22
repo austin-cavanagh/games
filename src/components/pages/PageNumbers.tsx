@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
 import { setCurrentPage } from '../../state/slices/resultsSlice';
+import startAndEndPage from '../../functions/startAndEndPage';
 
 function PageNumbers() {
   const { currentPage, totalGames } = useSelector(
@@ -15,20 +16,7 @@ function PageNumbers() {
   };
 
   const totalPages = Math.max(Math.ceil(totalGames / 12), 1);
-
-  let startPage: number;
-  let endPage: number;
-
-  if (currentPage <= 3) {
-    startPage = 1;
-    endPage = Math.min(5, totalPages);
-  } else if (currentPage + 2 >= totalPages) {
-    startPage = Math.max(totalPages - 4, 1);
-    endPage = totalPages;
-  } else {
-    startPage = currentPage - 2;
-    endPage = currentPage + 2;
-  }
+  const { startPage, endPage } = startAndEndPage(currentPage, totalPages);
 
   return (
     <>

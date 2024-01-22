@@ -9,6 +9,8 @@ function SelectedGamePopup() {
   const dispatch = useDispatch<AppDispatch>();
   const handleClose = () => dispatch(setSelectedGame(null));
 
+  console.log(selectedGame);
+
   const gameFilesArray = selectedGame?.GameFiles;
   const files =
     gameFilesArray && gameFilesArray.length > 0

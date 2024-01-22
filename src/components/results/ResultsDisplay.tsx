@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
 import { Game } from '../../types';
 import {
+  setCurrentPage,
   setSelectedGame,
   setTotalGames,
 } from '../../state/slices/resultsSlice';
@@ -27,7 +28,8 @@ function ResultsDisplay() {
     const sortedGames = sortGames(filteredGames, searchState.sortDropdown);
     setFilteredAndSortedGames(sortedGames);
 
-    // Also sending a dispatch to update currentPage state
+    // Also sending a dispatch to update currentPage and totalGames state
+    dispatch(setCurrentPage(1));
     dispatch(setTotalGames(sortedGames.length));
 
     // sortedGames.forEach(game => console.log(game.CategorySections.length));
