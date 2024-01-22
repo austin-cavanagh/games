@@ -5,39 +5,26 @@ import PagesDisplayLeft from './PagesDisplayLeft';
 import '@testing-library/jest-dom';
 
 const mockStore = configureStore();
-const store = mockStore({
-  results: {
-    isLoading: true,
-    isError: false,
-    currentPage: 1,
-    loadingProgress: 0,
-    totalGames: 0,
-    selectedGame: null,
-    gamesArray: [],
-    promptUpdate: false,
-  },
-});
 
-describe('SearchContainer', () => {
+describe('PagesDisplayLeft', () => {
   it('renders components without crashing', () => {
+    const initialState = {
+      results: {
+        currentPage: 1,
+        totalGames: 269,
+      },
+    };
+
+    const store = mockStore(initialState);
+
     render(
       <Provider store={store}>
         <PagesDisplayLeft />
       </Provider>,
     );
 
-    expect(
-      screen.getByText((_, node) => {
-        if (!node) return false;
-        const hasText = (node: Element) =>
-          node.textContent === 'Showing 0 to 0 of 0 results';
-        const nodeHasText = hasText(node);
-        const childrenDontHaveText = Array.from(node.children).every(
-          (child: Element) => !hasText(child),
-        );
-
-        return nodeHasText && childrenDontHaveText;
-      }),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId('start-result')).toHaveTextContent('1');
+    expect(screen.getByTestId('end-result')).toHaveTextContent('12');
+    expect(screen.getByTestId('total-games')).toHaveTextContent('269');
   });
 });

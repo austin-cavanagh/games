@@ -11,7 +11,6 @@ function PageNumbers() {
 
   const handlePageChange = (pageChange: number) => {
     const newPage = currentPage + pageChange;
-    if (newPage < 1 || newPage > totalPages) return;
     dispatch(setCurrentPage(newPage));
   };
 

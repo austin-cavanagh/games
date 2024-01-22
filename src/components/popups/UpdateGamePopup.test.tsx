@@ -83,12 +83,6 @@ describe('UpdateGamePopup', () => {
 
     expect(store.dispatch).toHaveBeenCalledWith(hidePromptUpdates());
     expect(store.dispatch).toHaveBeenCalledWith(clearGamesArray());
-    // expect(store.dispatch).toHaveBeenCalledWith(fetchGamesThunk());
-    // why do we not catch this dispatch is it because it is a thunk?
-
-    // {"payload": undefined, "type": "results/hidePromptUpdates"}
-    //        2: {"payload": undefined, "type": "results/clearGamesArray"}
-    //        3: [Function anonymous]
   });
 
   it('dispatches hidePromptUpdates when Remind Me Later button is clicked', async () => {

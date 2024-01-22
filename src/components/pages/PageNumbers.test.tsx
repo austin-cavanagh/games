@@ -3,6 +3,8 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import PageNumbers from './PageNumbers';
 import '@testing-library/jest-dom';
+import { userEvent } from '@testing-library/user-event';
+import { setCurrentPage } from '../../state/slices/resultsSlice';
 // import userEvent from '@testing-library/user-event';
 // import { setCurrentPage } from '../../state/slices/resultsSlice';
 
@@ -38,45 +40,39 @@ describe('PageNumbers', () => {
     expect(screen.getByText('1')).toBeInTheDocument();
   });
 
-  // it('sends action to redux store to change currentPage state', async () => {
-  //   const store = mockStore({
-  //     results: {
-  //       isLoading: true,
-  //       isError: false,
-  //       currentPage: 1,
-  //       loadingProgress: 0,
-  //       totalGames: 120,
-  //       selectedGame: null,
-  //       gamesArray: [],
-  //       promptUpdate: false,
-  //     },
-  //   });
+  it('sends action to redux store to change currentPage state', async () => {
+    const initialState = {
+      results: {
+        isLoading: true,
+        isError: false,
+        currentPage: 1,
+        loadingProgress: 0,
+        totalGames: 120,
+        selectedGame: null,
+        gamesArray: [],
+        promptUpdate: false,
+      },
+    };
 
-  //   render(
-  //     <Provider store={store}>
-  //       <PageNumbers />
-  //     </Provider>,
-  //   );
+    const store = mockStore(initialState);
+    store.dispatch = jest.fn();
 
-  //   expect(screen.getByText('1')).toBeInTheDocument();
-  //   expect(screen.getByText('2')).toBeInTheDocument();
-  //   expect(screen.getByText('3')).toBeInTheDocument();
-  //   expect(screen.getByText('4')).toBeInTheDocument();
-  //   expect(screen.getByText('5')).toBeInTheDocument();
+    render(
+      <Provider store={store}>
+        <PageNumbers />
+      </Provider>,
+    );
 
-  //   const pageNumber = screen.getByText('3');
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByText('3')).toBeInTheDocument();
+    expect(screen.getByText('4')).toBeInTheDocument();
+    expect(screen.getByText('5')).toBeInTheDocument();
 
-  //   console.log('PAGENUMBER', pageNumber);
+    const pageNumber = screen.getByText('3');
 
-  //   userEvent.click(pageNumber);
+    await userEvent.click(pageNumber);
 
-  //   const expectedPayload = {
-  //     type: 'results/setCurrentPage',
-  //     payload: expect.anything(),
-  //   };
-
-  //   const actions = store.getActions();
-  //   console.log(actions);
-  //   expect(actions).toContainEqual(expectedPayload);
-  // });
+    expect(store.dispatch).toHaveBeenCalledWith(setCurrentPage(3));
+  });
 });

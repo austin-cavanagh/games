@@ -5,13 +5,13 @@ import PagesDisplayRight from './PagesDisplayRight';
 import '@testing-library/jest-dom';
 import { userEvent } from '@testing-library/user-event';
 import { setCurrentPage } from '../../state/slices/resultsSlice';
-// import { RootState } from '../../state/store';
+import { RootState } from '../../state/store';
 
 const mockStore = configureStore();
 
 describe('PagesDisplayRight', () => {
   it('renders components  with both icons', () => {
-    const store = mockStore({
+    const initialState = {
       results: {
         isLoading: true,
         isError: false,
@@ -22,7 +22,9 @@ describe('PagesDisplayRight', () => {
         gamesArray: [],
         promptUpdate: false,
       },
-    });
+    };
+
+    const store = mockStore(initialState);
 
     render(
       <Provider store={store}>
@@ -92,32 +94,32 @@ describe('PagesDisplayRight', () => {
     expect(store.dispatch).toHaveBeenCalledWith(setCurrentPage(1));
   });
 
-  // it('clicking the left chevron on page 1 does not change currentPage', async () => {
-  //   const initialState = {
-  //     results: {
-  //       isLoading: true,
-  //       isError: false,
-  //       currentPage: 2,
-  //       loadingProgress: 0,
-  //       totalGames: 100,
-  //       selectedGame: null,
-  //       gamesArray: [],
-  //       promptUpdate: false,
-  //     },
-  //   };
+  it('clicking the left chevron on page 1 does not change currentPage', async () => {
+    const initialState = {
+      results: {
+        isLoading: true,
+        isError: false,
+        currentPage: 1,
+        loadingProgress: 0,
+        totalGames: 100,
+        selectedGame: null,
+        gamesArray: [],
+        promptUpdate: false,
+      },
+    };
 
-  //   const store = mockStore(initialState);
+    const store = mockStore(initialState);
 
-  //   render(
-  //     <Provider store={store}>
-  //       <PagesDisplayRight />
-  //     </Provider>,
-  //   );
+    render(
+      <Provider store={store}>
+        <PagesDisplayRight />
+      </Provider>,
+    );
 
-  //   const leftChevron = screen.getByTestId('pages-left-chevron');
-  //   await userEvent.click(leftChevron);
+    const leftChevron = screen.getByTestId('pages-left-chevron');
+    await userEvent.click(leftChevron);
 
-  //   const state: RootState = store.getState();
-  //   expect(state.results.currentPage).toBe(1);
-  // });
+    const state: RootState = store.getState() as RootState;
+    expect(state.results.currentPage).toBe(1);
+  });
 });

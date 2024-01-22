@@ -12,9 +12,19 @@ function PagesDisplayLeft() {
 
   return (
     <p className="text-sm text-gray-700">
-      Showing <span className="font-medium">{startResult}</span> to{' '}
-      <span className="font-medium">{endResult}</span> of{' '}
-      <span className="font-medium">{totalGames.toLocaleString()}</span> results
+      Showing{' '}
+      <span className="font-medium" data-testid="start-result">
+        {startResult}
+      </span>{' '}
+      to{' '}
+      <span className="font-medium" data-testid="end-result">
+        {endResult}
+      </span>{' '}
+      of{' '}
+      <span className="font-medium" data-testid="total-games">
+        {totalGames}
+      </span>{' '}
+      results
     </p>
   );
 }

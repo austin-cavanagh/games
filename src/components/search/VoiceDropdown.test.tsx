@@ -5,10 +5,9 @@ import configureStore from 'redux-mock-store';
 import VoiceDropdown from './VoiceDropdown';
 import { RootState } from '../../state/store';
 import '@testing-library/jest-dom';
-// import { setVoiceDropdown } from '../../state/slices/searchSlice';
+import { setVoiceDropdown } from '../../state/slices/searchSlice';
 
 const mockStore = configureStore<Partial<RootState>>();
-
 const options: string[] = ['-', 'Yes', 'No'];
 
 describe('VoiceDropdown', () => {
@@ -61,28 +60,50 @@ describe('VoiceDropdown', () => {
     });
   });
 
-  // it('dispatches setVoiceDropdown when dropdown input changes', () => {
-  //   const initialState = {
-  //     search: {
-  //       nameInput: '',
-  //       addonsDropdown: '-',
-  //       voiceDropdown: '-',
-  //       sortDropdown: 'Order',
-  //     },
-  //   };
+  it('dispatches setVoiceDropdown when dropdown input changes', async () => {
+    const initialState = {
+      search: {
+        nameInput: '',
+        addonsDropdown: '-',
+        voiceDropdown: '-',
+        sortDropdown: 'Order',
+      },
+    };
 
-  //   const store = mockStore(initialState);
-  //   store.dispatch = jest.fn();
+    const store = mockStore(initialState);
+    store.dispatch = jest.fn();
 
-  //   render(
-  //     <Provider store={store}>
-  //       <VoiceDropdown />
-  //     </Provider>,
-  //   );
+    render(
+      <Provider store={store}>
+        <VoiceDropdown />
+      </Provider>,
+    );
 
-  //   const dropdown = screen.getByTestId('voice-dropdown');
-  //   fireEvent.change(dropdown, { target: { value: 'Yes' } });
+    userEvent.click(screen.getByTestId('voice-chevron-icon'));
+    const optionElement = await screen.findByText('Yes');
+    await userEvent.click(optionElement);
 
-  //   expect(store.dispatch).toHaveBeenCalledWith(setVoiceDropdown('Yes'));
-  // });
+    expect(store.dispatch).toHaveBeenCalledWith(setVoiceDropdown('Yes'));
+  });
+
+  it('rendering different input other than -', () => {
+    const initialState = {
+      search: {
+        nameInput: '',
+        addonsDropdown: '-',
+        voiceDropdown: 'Yes',
+        sortDropdown: 'Order',
+      },
+    };
+
+    const store = mockStore(initialState);
+
+    render(
+      <Provider store={store}>
+        <VoiceDropdown />
+      </Provider>,
+    );
+
+    expect(screen.getByText('Yes')).toBeInTheDocument();
+  });
 });
