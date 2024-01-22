@@ -2,11 +2,14 @@ import { Combobox } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
 import { setNameInput } from '../../state/slices/searchSlice';
+import { debounce } from 'lodash';
 
 function NameInput() {
   const { nameInput } = useSelector((state: RootState) => state.search);
   const dispatch = useDispatch<AppDispatch>();
-  const handleInputChange = (name: string) => dispatch(setNameInput(name));
+  const handleInputChange = debounce((name: string) => {
+    dispatch(setNameInput(name));
+  }, 300);
 
   return (
     <Combobox

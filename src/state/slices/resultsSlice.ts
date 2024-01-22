@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Game } from '../../types';
 import fetchGamesData from '../../functions/fetchGamesData';
-import isEqual from 'lodash.isequal';
+import { isEqual } from 'lodash';
 
 type ResultsState = {
   isLoading: boolean;

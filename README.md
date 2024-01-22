@@ -36,22 +36,15 @@
 ## Bonus, Not Required
 
 - Implement Redux state and component testing using react-testing
-<!-- - Implement the project in TypeScript - preferred -->
-- Implement functionality to periodically re-download the game data file (in case it has updated)
-<!-- - Implement sorting and filtering -->
+  <!-- - Implement the project in TypeScript - preferred --> -->
+  <!-- - Implement functionality to periodically re-download the game data file (in case it has updated) -->
+  <!-- - Implement sorting and filtering -->
 
 <!-- To Do -->
 
-<!-- implement debouncing -->
-<!-- error screen that shows error -->
-<!-- results section should center itself in area -->
-
-<!-- screen that shows no results -->
-<!-- multiple requests on error -->
-
-<!-- highlight games as you hover or tab over them? -->
-<!-- resolve issues with chrome -->
 <!-- loading progress bar -->
-<!-- changing pages does not send user to top -->
-<!-- add icon to chrome tab -->
+
 <!-- have success or error notificaiton popup after download -->
+<!-- multiple requests on error -->
+<!-- resolve issues with chrome? -->
+<!-- changing pages does not send user to top -->
