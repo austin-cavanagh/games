@@ -97,4 +97,24 @@ describe('fetchGamesData', () => {
     // Optionally, ensure that fetch was called with the correct URL
     expect(global.fetch).toHaveBeenCalledWith('../../../games.json');
   });
+
+  it('throws an error when ReadableStream is not supported', async () => {
+    // Mock fetch to return a response with no body property
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      // This simulates an environment where ReadableStream is not supported
+      body: null, // or 'body' in Response.prototype ? new ReadableStream() : null,
+    });
+
+    // Attempt to call fetchGamesData and expect it to throw an error
+    await expect(fetchGamesData(mockDispatch)).rejects.toThrow(
+      'ReadableStream not supported',
+    );
+
+    // Ensure that setLoadingProgress was not called since ReadableStream is not supported
+    expect(mockDispatch).not.toHaveBeenCalled();
+  });
 });
