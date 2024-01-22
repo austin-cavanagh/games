@@ -6,7 +6,7 @@ import {
   setTotalGames,
   hidePromptUpdates,
   clearGamesArray,
-  //   fetchGamesThunk,
+  // fetchGamesThunk,
   default as resultsReducer,
 } from './resultsSlice';
 
@@ -66,18 +66,13 @@ describe('reducers and actions', () => {
 
 // HANDLING ASYNC THUNK
 
-// import configureStore from 'redux-mock-store';
+// import configureMockStore from 'redux-mock-store';
 // import thunk from 'redux-thunk';
 // import fetchMock from 'fetch-mock';
 
-// const mockStore = configureStore({
-//   reducer: {
-//     // Assuming 'results' is the name of the state slice handled by resultsReducer
-//     results: resultsReducer,
-//     // Include other slice reducers here as needed
-//   },
-//   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(thunk),
-// });
+// const middlewares: any = [thunk];
+
+// const mockStore = configureMockStore(middlewares);
 
 // describe('fetchGamesThunk action creator', () => {
 //   afterEach(() => {
@@ -85,8 +80,12 @@ describe('reducers and actions', () => {
 //   });
 
 //   it('dispatches actions correctly on successful fetch', async () => {
-//     fetchMock.getOnce('path/to/your/api/endpoint', {
-//       body: games,
+//     const expectedGames = [
+//       { ID: 1, Name: 'Game 1', SupportsAddons: true, SupportsVoice: true },
+//     ];
+
+//     fetchMock.getOnce('/endpoint/to/fetch/games', {
+//       body: { data: expectedGames }, // Assuming your API wraps the response in a "data" property
 //       headers: { 'content-type': 'application/json' },
 //     });
 
@@ -103,17 +102,12 @@ describe('reducers and actions', () => {
 //       },
 //     });
 
-//     const expectedActions = [
-//       { type: 'results/fetchGamesThunk/pending' },
-//       { type: 'results/fetchGamesThunk/fulfilled', payload: games },
-//     ];
-
 //     await store.dispatch(fetchGamesThunk());
 
-//     // Check if the expected actions were dispatched
-//     const actualActions = store
-//       .getActions()
-//       .map(action => ({ type: action.type, payload: action.payload }));
-//     expect(actualActions).toEqual(expect.arrayContaining(expectedActions));
+//     const actions = store.getActions();
+//     expect(actions).toEqual([
+//       { type: 'results/fetchGamesThunk/pending', payload: undefined },
+//       { type: 'results/fetchGamesThunk/fulfilled', payload: expectedGames },
+//     ]);
 //   });
 // });

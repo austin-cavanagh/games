@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1705935033986" clover="3.2.0">
-  <project timestamp="1705935033986" name="All files">
-    <metrics statements="298" coveredstatements="262" conditionals="95" coveredconditionals="64" methods="93" coveredmethods="77" elements="486" coveredelements="403" complexity="0" loc="298" ncloc="298" packages="7" files="22" classes="22"/>
+<coverage generated="1705944867500" clover="3.2.0">
+  <project timestamp="1705944867500" name="All files">
+    <metrics statements="298" coveredstatements="266" conditionals="95" coveredconditionals="65" methods="93" coveredmethods="77" elements="486" coveredelements="408" complexity="0" loc="298" ncloc="298" packages="7" files="22" classes="22"/>
     <package name="components.pages">
       <metrics statements="43" coveredstatements="38" conditionals="14" coveredconditionals="8" methods="13" coveredmethods="11"/>
       <file name="PageNumbers.tsx" path="/Users/austincavanagh/Desktop/games/src/components/pages/PageNumbers.tsx">
@@ -255,18 +255,18 @@
       </file>
     </package>
     <package name="functions">
-      <metrics statements="64" coveredstatements="59" conditionals="20" coveredconditionals="17" methods="14" coveredmethods="14"/>
+      <metrics statements="64" coveredstatements="63" conditionals="20" coveredconditionals="18" methods="14" coveredmethods="14"/>
       <file name="classNames.ts" path="/Users/austincavanagh/Desktop/games/src/functions/classNames.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="2" count="60" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
       </file>
       <file name="fetchGamesData.ts" path="/Users/austincavanagh/Desktop/games/src/functions/fetchGamesData.ts">
-        <metrics statements="31" coveredstatements="26" conditionals="5" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <metrics statements="31" coveredstatements="30" conditionals="5" coveredconditionals="3" methods="3" coveredmethods="3"/>
         <line num="2" count="8" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="9" count="0" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="8" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="9" count="1" type="stmt"/>
         <line num="13" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="14" count="1" type="stmt"/>
         <line num="17" count="1" type="cond" truecount="0" falsecount="1"/>
@@ -290,9 +290,9 @@
         <line num="61" count="1" type="stmt"/>
         <line num="62" count="1" type="stmt"/>
         <line num="66" count="1" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
         <line num="75" count="8" type="stmt"/>
       </file>
       <file name="filterGames.ts" path="/Users/austincavanagh/Desktop/games/src/functions/filterGames.ts">

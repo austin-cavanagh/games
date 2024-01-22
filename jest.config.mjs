@@ -15,5 +15,5 @@ export default {
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
   testPathIgnorePatterns: ['/node_modules/', '<rootDir>/cors-anywhere/'],
-  setupFilesAfterEnv: ['@testing-library/jest-dom', '<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom'],
 };
