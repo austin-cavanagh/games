@@ -8,7 +8,7 @@ import classNames from '../../functions/classNames';
 
 const options: string[] = ['-', 'Yes', 'No'];
 
-function VoiceSupportDropdown() {
+function VoiceDropdown() {
   const voiceDropdown = useSelector(
     (state: RootState) => state.search.voiceDropdown,
   );
@@ -24,7 +24,7 @@ function VoiceSupportDropdown() {
         <>
           <div className="flex justify-between">
             <label
-              htmlFor="maxPrice"
+              htmlFor="voice"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               Voice Support
@@ -32,7 +32,7 @@ function VoiceSupportDropdown() {
           </div>
           <div className="relative mt-2">
             <Listbox.Button
-              id="maxPrice"
+              id="voice"
               className={`relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left ${
                 voiceDropdown === '-' ? 'text-gray-400' : 'text-gray-900'
               } shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6`}
@@ -42,7 +42,7 @@ function VoiceSupportDropdown() {
                 <ChevronUpDownIcon
                   className="h-5 w-5 text-gray-400"
                   aria-hidden="true"
-                  data-testid="max-price-chevron-icon"
+                  data-testid="voice-chevron-icon"
                 />
               </span>
             </Listbox.Button>
@@ -100,4 +100,4 @@ function VoiceSupportDropdown() {
   );
 }
 
-export default VoiceSupportDropdown;
+export default VoiceDropdown;

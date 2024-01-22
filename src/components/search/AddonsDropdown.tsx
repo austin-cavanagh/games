@@ -4,12 +4,9 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
 import { setAddonsDropdown } from '../../state/slices/searchSlice';
+import classNames from '../../functions/classNames';
 
 const options: string[] = ['-', 'Yes', 'No'];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
 
 function AddonsDropdown() {
   const addonsDropdown = useSelector(
@@ -27,7 +24,7 @@ function AddonsDropdown() {
         <>
           <div className="flex justify-between">
             <label
-              htmlFor="maxPrice"
+              htmlFor="add-ons"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               Add-Ons
@@ -35,7 +32,7 @@ function AddonsDropdown() {
           </div>
           <div className="relative mt-2">
             <Listbox.Button
-              id="maxPrice"
+              id="add-ons"
               className={`relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left ${
                 addonsDropdown === '-' ? 'text-gray-400' : 'text-gray-900'
               } shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6`}
@@ -44,8 +41,7 @@ function AddonsDropdown() {
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronUpDownIcon
                   className="h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                  data-testid="max-price-chevron-icon"
+                  data-testid="add-ons-chevron-icon"
                 />
               </span>
             </Listbox.Button>
@@ -87,7 +83,7 @@ function AddonsDropdown() {
                               'absolute inset-y-0 right-0 flex items-center pr-4',
                             )}
                           >
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                            <CheckIcon className="h-5 w-5" />
                           </span>
                         ) : null}
                       </>

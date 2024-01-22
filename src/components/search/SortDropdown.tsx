@@ -29,7 +29,10 @@ function SortDropdown() {
                 <p className="text-sm font-semibold">{`Sort By: ${sortDropdown}`}</p>
               </div>
               <Listbox.Button className="inline-flex items-center rounded-l-none rounded-r-md bg-indigo-600 p-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-gray-50">
-                <ChevronDownIcon className="h-5 w-5 text-white" />
+                <ChevronDownIcon
+                  className="h-5 w-5 text-white"
+                  data-testid="sort-chevron-icon"
+                />
               </Listbox.Button>
             </div>
 

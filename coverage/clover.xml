@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1705910453720" clover="3.2.0">
+  <project timestamp="1705910453720" name="All files">
+    <metrics statements="84" coveredstatements="71" conditionals="28" coveredconditionals="19" methods="34" coveredmethods="21" elements="146" coveredelements="111" complexity="0" loc="84" ncloc="84" packages="4" files="7" classes="7"/>
+    <package name="components.search">
+      <metrics statements="67" coveredstatements="58" conditionals="28" coveredconditionals="19" methods="28" coveredmethods="19"/>
+      <file name="AddonsDropdown.tsx" path="/Users/austincavanagh/Desktop/games/src/components/search/AddonsDropdown.tsx">
+        <metrics statements="18" coveredstatements="15" conditionals="10" coveredconditionals="2" methods="7" coveredmethods="4"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="10" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="24" count="5" type="stmt"/>
+        <line num="58" count="15" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="102" count="2" type="stmt"/>
+      </file>
+      <file name="NameInput.tsx" path="/Users/austincavanagh/Desktop/games/src/components/search/NameInput.tsx">
+        <metrics statements="13" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="3"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+      </file>
+      <file name="SortDropdown.tsx" path="/Users/austincavanagh/Desktop/games/src/components/search/SortDropdown.tsx">
+        <metrics statements="18" coveredstatements="16" conditionals="8" coveredconditionals="8" methods="8" coveredmethods="6"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="12" count="12" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="25" count="14" type="stmt"/>
+        <line num="48" count="56" type="stmt"/>
+        <line num="51" count="32" type="stmt"/>
+        <line num="59" count="32" type="stmt"/>
+        <line num="91" count="2" type="stmt"/>
+      </file>
+      <file name="VoiceDropdown.tsx" path="/Users/austincavanagh/Desktop/games/src/components/search/VoiceDropdown.tsx">
+        <metrics statements="18" coveredstatements="17" conditionals="10" coveredconditionals="9" methods="7" coveredmethods="6"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="10" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="24" count="9" type="stmt"/>
+        <line num="59" count="27" type="stmt"/>
+        <line num="62" count="12" type="stmt"/>
+        <line num="70" count="12" type="stmt"/>
+        <line num="103" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="containers">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="SearchContainer.tsx" path="/Users/austincavanagh/Desktop/games/src/containers/SearchContainer.tsx">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="functions">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="classNames.ts" path="/Users/austincavanagh/Desktop/games/src/functions/classNames.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="2" count="60" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="state.slices">
+      <metrics statements="9" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <file name="searchSlice.ts" path="/Users/austincavanagh/Desktop/games/src/state/slices/searchSlice.ts">
+        <metrics statements="9" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="36" count="5" type="stmt"/>
+        <line num="43" count="5" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
