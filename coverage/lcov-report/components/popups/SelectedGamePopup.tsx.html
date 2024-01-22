@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/16</span>
+                <span class='fraction'>14/16</span>
             </div>
         
             
@@ -202,34 +202,32 @@
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a>
 <a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -340,7 +338,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -358,13 +358,13 @@ function SelectedGamePopup() {
   const files =
     gameFilesArray &amp;&amp; gameFilesArray.length &gt; 0
       ? gameFilesArray.map(file =&gt; file.FileName).join(', ')
-      : <span class="branch-1 cbranch-no" title="branch not covered" >'No Files';</span>
+      : 'No Files';
 &nbsp;
   const categoriesArray = selectedGame?.CategorySections;
   const categories =
     categoriesArray &amp;&amp; categoriesArray.length &gt; 0
       ? categoriesArray.map(file =&gt; file.Name).join(', ')
-      : <span class="branch-1 cbranch-no" title="branch not covered" >'No Categories';</span>
+      : 'No Categories';
 &nbsp;
   return (
     &lt;Transition.Root show={selectedGame !== null} as={Fragment}&gt;
@@ -437,7 +437,7 @@ function SelectedGamePopup() {
                     &lt;p className="text-sm text-gray-500"&gt;
                       {categories !== 'No Categories'
                         ? categories
-                        : <span class="branch-1 cbranch-no" title="branch not covered" >'No Categories'}</span>
+                        : 'No Categories'}
                     &lt;/p&gt;
                   &lt;/div&gt;
 &nbsp;
@@ -447,7 +447,7 @@ function SelectedGamePopup() {
                       Files
                     &lt;/h3&gt;
                     &lt;p className="text-sm text-gray-500"&gt;
-                      {files !== 'No Files' ? files : <span class="branch-1 cbranch-no" title="branch not covered" >'No Files'}</span>
+                      {files !== 'No Files' ? files : 'No Files'}
                     &lt;/p&gt;
                   &lt;/div&gt;
 &nbsp;
@@ -487,7 +487,7 @@ export default SelectedGamePopup;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-22T19:12:07.853Z
+                at 2024-01-22T20:21:24.760Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

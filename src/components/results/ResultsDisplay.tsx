@@ -53,6 +53,7 @@ function ResultsDisplay() {
             key={game.ID}
             onClick={() => handleSelectGame(game)}
             className="col-span-1 flex flex-col justify-around rounded-lg p-5 text-center shadow hover:cursor-pointer"
+            data-testid="click-game"
           >
             {/* Image */}
             <img
@@ -62,6 +63,7 @@ function ResultsDisplay() {
                 e.currentTarget.src = '../../../images/no-image.png';
               }}
               alt=""
+              data-testid="game-image"
             />
 
             {/* Name */}

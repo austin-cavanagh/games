@@ -6,7 +6,6 @@ import {
   setTotalGames,
   hidePromptUpdates,
   clearGamesArray,
-  // fetchGamesThunk,
   default as resultsReducer,
 } from './resultsSlice';
 
@@ -64,50 +63,85 @@ describe('reducers and actions', () => {
   });
 });
 
-// HANDLING ASYNC THUNK
+import { configureStore } from '@reduxjs/toolkit';
+import { fetchGamesThunk } from './resultsSlice';
+import fetchGamesData from '../../functions/fetchGamesData';
 
-// import configureMockStore from 'redux-mock-store';
-// import thunk from 'redux-thunk';
-// import fetchMock from 'fetch-mock';
+jest.mock('../../functions/fetchGamesData', () => ({
+  __esModule: true, // This property makes it work correctly with ES Module interop
+  default: jest.fn(), // Mock the default export
+}));
 
-// const middlewares: any = [thunk];
+// Mock successful fetch
+const mockGames = [
+  { ID: 1, Name: 'Test Game', SupportsAddons: true, SupportsVoice: false },
+];
 
-// const mockStore = configureMockStore(middlewares);
+describe('fulfilled', () => {
+  beforeEach(() => {
+    (fetchGamesData as jest.Mock).mockResolvedValue(mockGames);
+  });
 
-// describe('fetchGamesThunk action creator', () => {
-//   afterEach(() => {
-//     fetchMock.restore();
-//   });
+  it('handles fetchGamesThunk.fulfilled', async () => {
+    const store = configureStore({
+      reducer: {
+        results: resultsReducer,
+      },
+    });
 
-//   it('dispatches actions correctly on successful fetch', async () => {
-//     const expectedGames = [
-//       { ID: 1, Name: 'Game 1', SupportsAddons: true, SupportsVoice: true },
-//     ];
+    await store.dispatch(fetchGamesThunk());
 
-//     fetchMock.getOnce('/endpoint/to/fetch/games', {
-//       body: { data: expectedGames }, // Assuming your API wraps the response in a "data" property
-//       headers: { 'content-type': 'application/json' },
-//     });
+    const state = store.getState().results;
+    expect(state.isLoading).toBeFalsy();
+    expect(state.gamesArray).toEqual(mockGames);
+    expect(state.isError).toBeFalsy();
+  });
+});
 
-//     const store = mockStore({
-//       results: {
-//         isLoading: false,
-//         isError: false,
-//         currentPage: 1,
-//         loadingProgress: 0,
-//         totalGames: 0,
-//         selectedGame: null,
-//         gamesArray: [],
-//         promptUpdate: false,
-//       },
-//     });
+describe('rejected', () => {
+  beforeEach(() => {
+    (fetchGamesData as jest.Mock).mockRejectedValue(new Error('Fetch failed'));
+  });
 
-//     await store.dispatch(fetchGamesThunk());
+  it('handles fetchGamesThunk.rejected', async () => {
+    const store = configureStore({
+      reducer: {
+        results: resultsReducer,
+      },
+    });
 
-//     const actions = store.getActions();
-//     expect(actions).toEqual([
-//       { type: 'results/fetchGamesThunk/pending', payload: undefined },
-//       { type: 'results/fetchGamesThunk/fulfilled', payload: expectedGames },
-//     ]);
-//   });
-// });
+    await store.dispatch(fetchGamesThunk());
+
+    const state = store.getState().results;
+    expect(state.isLoading).toBeFalsy();
+    expect(state.isError).toBeTruthy();
+  });
+});
+
+const mockInitialState = {
+  isLoading: true,
+  isError: false,
+  currentPage: 1,
+  loadingProgress: 0,
+  totalGames: 0,
+  selectedGame: null,
+  gamesArray: [],
+  promptUpdate: false,
+};
+
+describe('pending', () => {
+  it('initial state is loading (simulating pending)', () => {
+    const store = configureStore({
+      reducer: {
+        results: resultsReducer,
+      },
+      preloadedState: {
+        results: mockInitialState,
+      },
+    });
+
+    const state = store.getState().results;
+    expect(state.isLoading).toBeTruthy();
+    expect(state.gamesArray).toHaveLength(0);
+  });
+});
