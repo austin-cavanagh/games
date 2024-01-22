@@ -6,16 +6,20 @@ import '@testing-library/jest-dom';
 
 const mockStore = configureStore();
 const store = mockStore({
-  search: {
-    nameInput: '',
-    addonsDropdown: '-',
-    voiceDropdown: '-',
-    sortDropdown: 'Order',
+  results: {
+    isLoading: true,
+    isError: false,
+    currentPage: 1,
+    loadingProgress: 0,
+    totalGames: 0,
+    selectedGame: null,
+    gamesArray: [],
+    promptUpdate: false,
   },
 });
 
 describe('SearchContainer', () => {
-  it('renders without crashing', () => {
+  it('renders components without crashing', () => {
     render(
       <Provider store={store}>
         <PagesContainer />
@@ -23,10 +27,21 @@ describe('SearchContainer', () => {
     );
 
     expect(
-      screen.getByText('Showing 1 to 12 of of 269 results'),
+      screen.getByText((_, node) => {
+        if (!node) return false; // Check if node is not null
+        const hasText = (node: Element) =>
+          node.textContent === 'Showing 0 to 0 of 0 results';
+        const nodeHasText = hasText(node);
+        const childrenDontHaveText = Array.from(node.children).every(
+          (child: Element) => !hasText(child),
+        );
+
+        return nodeHasText && childrenDontHaveText;
+      }),
     ).toBeInTheDocument();
-    expect(screen.getByText('Add-Ons')).toBeInTheDocument();
-    expect(screen.getByText('Voice Support')).toBeInTheDocument();
-    expect(screen.getByText('Sort By: Order')).toBeInTheDocument();
+
+    expect(screen.getByTestId('pages-left-chevron')).toBeInTheDocument();
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(screen.getByTestId('pages-right-chevron')).toBeInTheDocument();
   });
 });

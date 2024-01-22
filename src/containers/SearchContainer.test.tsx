@@ -15,7 +15,7 @@ const store = mockStore({
 });
 
 describe('SearchContainer', () => {
-  it('renders without crashing', () => {
+  it('renders components crashing', () => {
     render(
       <Provider store={store}>
         <SearchContainer />

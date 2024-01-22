@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import { AppDispatch, RootState } from '../state/store';
 import { setCurrentPage } from '../state/slices/resultsSlice';
+import PageNumbers from '../components/pages/PageNumbers';
 
 function PagesContainer() {
   const { currentPage, totalGames } = useSelector(
@@ -16,7 +17,7 @@ function PagesContainer() {
     dispatch(setCurrentPage(newPage));
   };
 
-  const renderPageNumbers = () => {
+  const renderPageNumberComponents = () => {
     let startPage, endPage;
 
     if (currentPage <= 3) {
@@ -80,10 +81,14 @@ function PagesContainer() {
             className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 focus-visible:outline-indigo-600"
           >
             <span className="sr-only">Previous</span>
-            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+            <ChevronLeftIcon
+              className="h-5 w-5"
+              aria-hidden="true"
+              data-testid="pages-left-chevron"
+            />
           </a>
 
-          {renderPageNumbers()}
+          <PageNumbers />
 
           <a
             href="#"
@@ -91,7 +96,11 @@ function PagesContainer() {
             className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 focus-visible:outline-indigo-600"
           >
             <span className="sr-only">Next</span>
-            <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+            <ChevronRightIcon
+              className="h-5 w-5"
+              aria-hidden="true"
+              data-testid="pages-right-chevron"
+            />
           </a>
         </nav>
       </div>
