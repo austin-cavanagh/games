@@ -1,6 +1,9 @@
 import { Game, GameUpdate } from '../types';
 
-function trackUpdates(gamesArray: Game[], newGamesArray: Game[]): GameUpdate[] {
+function trackGameUpdates(
+  gamesArray: Game[],
+  newGamesArray: Game[],
+): GameUpdate[] {
   const updatesArray: GameUpdate[] = [];
 
   // Check for new or updated games
@@ -28,4 +31,4 @@ function trackUpdates(gamesArray: Game[], newGamesArray: Game[]): GameUpdate[] {
   return updatesArray;
 }
 
-export default trackUpdates;
+export default trackGameUpdates;

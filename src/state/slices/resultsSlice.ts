@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Game, GameUpdate } from '../../types';
 import fetchGamesData from '../../functions/fetchGamesData';
-import trackUpdates from '../../functions/updateGames';
+import trackGameUpdates from '../../functions/trackGameUpdates';
 
 type ResultsState = {
   isLoading: boolean;
@@ -24,7 +24,7 @@ const initialState: ResultsState = {
   selectedGame: null,
   gamesArray: [],
   updatesArray: [],
-  promptUpdates: false,
+  promptUpdates: true,
 };
 
 const resultsSlice = createSlice({
@@ -42,6 +42,33 @@ const resultsSlice = createSlice({
     },
     setTotalGames: (state, action: PayloadAction<number>) => {
       state.totalGames = action.payload;
+    },
+    hidePromptUpdates: state => {
+      state.promptUpdates = false;
+    },
+    updateGamesArray: state => {
+      const updatesArray = state.updatesArray;
+      const gamesArray = state.gamesArray;
+      const newGamesArray = [...gamesArray];
+
+      updatesArray.forEach(update => {
+        if (update.type === 'added') {
+          oldGamesArray.push(update.data);
+        }
+
+        if (update.type === 'removed') {
+          state.oldGamesArray = oldGamesArray.filter(game => {
+            return game.ID !== update.data.ID;
+          });
+        }
+
+        if (update.type === 'updated') {
+          state;
+        }
+      });
+
+      state.gamesArray = //
+        state.updatesArray = [];
     },
   },
   extraReducers: builder => {
@@ -62,7 +89,7 @@ const resultsSlice = createSlice({
           }
 
           const tempGamesArray: Game[] = [...state.gamesArray];
-          const newUpdatesArray: GameUpdate[] = trackUpdates(
+          const newUpdatesArray: GameUpdate[] = trackGameUpdates(
             tempGamesArray,
             fetchedGamesArray,
           );
@@ -100,6 +127,7 @@ export const {
   setCurrentPage,
   setSelectedGame,
   setTotalGames,
+  hidePromptUpdates,
 } = resultsSlice.actions;
 
 export default resultsSlice.reducer;
