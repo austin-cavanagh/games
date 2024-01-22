@@ -1,17 +1,18 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Game, UpdateGame } from '../../types';
+import { Game, GameUpdate } from '../../types';
 import fetchGamesData from '../../functions/fetchGamesData';
+import trackUpdates from '../../functions/updateGames';
 
 type ResultsState = {
   isLoading: boolean;
   isError: boolean;
-  currentPage: number;
   loadingProgress: number;
+  currentPage: number;
   totalGames: number;
-  newGameData: Game[];
   selectedGame: Game | null;
   gamesArray: Game[];
-  updatesArray: UpdateGame[];
+  updatesArray: GameUpdate[];
+  promptUpdates: boolean;
 };
 
 const initialState: ResultsState = {
@@ -20,10 +21,10 @@ const initialState: ResultsState = {
   currentPage: 1,
   loadingProgress: 0,
   totalGames: 0,
-  newGameData: [],
   selectedGame: null,
   gamesArray: [],
   updatesArray: [],
+  promptUpdates: false,
 };
 
 const resultsSlice = createSlice({
@@ -53,7 +54,22 @@ const resultsSlice = createSlice({
         fetchGamesThunk.fulfilled,
         (state, action: PayloadAction<Game[]>) => {
           state.isLoading = false;
-          state.gamesArray = action.payload;
+          const fetchedGamesArray = action.payload;
+
+          if (state.gamesArray.length === 0) {
+            state.gamesArray = fetchedGamesArray;
+            return;
+          }
+
+          const tempGamesArray: Game[] = [...state.gamesArray];
+          const newUpdatesArray: GameUpdate[] = trackUpdates(
+            tempGamesArray,
+            fetchedGamesArray,
+          );
+
+          // Set updatesArray state to equal newUpdatesArray
+          state.updatesArray = newUpdatesArray;
+          state.promptUpdates = true;
         },
       )
       .addCase(fetchGamesThunk.rejected, state => {

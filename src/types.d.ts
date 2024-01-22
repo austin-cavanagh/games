@@ -63,8 +63,8 @@ export type Game = {
   TwitchGameId: number;
 };
 
-export type UpdateGame = {
-  type: string;
+export type GameUpdate = {
+  type: 'added' | 'removed' | 'updated';
   data: Game;
 };
 

@@ -5,7 +5,7 @@ import {
   setSelectedGame,
   setTotalGames,
 } from '../../state/slices/resultsSlice';
-import SelectedGameDisplay from '../popups/SelectedGameDisplay';
+import SelectedGameDisplay from '../popups/SelectedGamePopup';
 import filterGames from '../../functions/filterGames';
 import { useEffect, useState } from 'react';
 

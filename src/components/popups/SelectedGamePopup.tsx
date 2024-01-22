@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
 import { setSelectedGame } from '../../state/slices/resultsSlice';
 
-function SelectedGameDisplay() {
+function SelectedGamePopup() {
   const { selectedGame } = useSelector((state: RootState) => state.results);
   const dispatch = useDispatch<AppDispatch>();
   const handleClose = () => dispatch(setSelectedGame(null));
@@ -134,4 +134,4 @@ function SelectedGameDisplay() {
   );
 }
 
-export default SelectedGameDisplay;
+export default SelectedGamePopup;
