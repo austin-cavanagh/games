@@ -5,20 +5,12 @@ import PageNumbers from './PageNumbers';
 import '@testing-library/jest-dom';
 import { userEvent } from '@testing-library/user-event';
 import { setCurrentPage } from '../../state/slices/resultsSlice';
-// import userEvent from '@testing-library/user-event';
-// import { setCurrentPage } from '../../state/slices/resultsSlice';
 
-// Mock setCurrentPage action
-// jest.mock('../../state/slices/resultsSlice', () => ({
-//   ...jest.requireActual('../../state/slices/resultsSlice'),
-//   setCurrentPage: jest.fn(),
-// }));
+const mockStore = configureStore();
 
 describe('PageNumbers', () => {
-  const mockStore = configureStore();
-
   it('renders component initial state without crashing', () => {
-    const store = mockStore({
+    const initialState = {
       results: {
         isLoading: true,
         isError: false,
@@ -29,7 +21,9 @@ describe('PageNumbers', () => {
         gamesArray: [],
         promptUpdate: false,
       },
-    });
+    };
+
+    const store = mockStore(initialState);
 
     render(
       <Provider store={store}>

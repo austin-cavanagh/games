@@ -7,32 +7,31 @@ import { userEvent } from '@testing-library/user-event';
 import {
   clearGamesArray,
   hidePromptUpdates,
-  // fetchGamesThunk,
 } from '../../state/slices/resultsSlice';
+
+const initialState = {
+  results: {
+    isLoading: false,
+    isError: false,
+    currentPage: 1,
+    loadingProgress: 0,
+    totalGames: 1,
+    selectedGame: null,
+    gamesArray: [],
+    promptUpdate: true,
+  },
+  search: {
+    nameInput: '',
+    addonsDropdown: '-',
+    voiceDropdown: '-',
+    sortDropdown: 'Order',
+  },
+};
 
 const mockStore = configureStore();
 
 describe('UpdateGamePopup', () => {
   it('renders all text inside the component', () => {
-    const initialState = {
-      results: {
-        isLoading: false,
-        isError: false,
-        currentPage: 1,
-        loadingProgress: 0,
-        totalGames: 1,
-        selectedGame: null,
-        gamesArray: [],
-        promptUpdate: true,
-      },
-      search: {
-        nameInput: '',
-        addonsDropdown: '-',
-        voiceDropdown: '-',
-        sortDropdown: 'Order',
-      },
-    };
-
     const store = mockStore(initialState);
 
     render(
@@ -50,25 +49,6 @@ describe('UpdateGamePopup', () => {
   });
 
   it('dispatches fetchGamesThunk when Update Now button is clicked', async () => {
-    const initialState = {
-      results: {
-        isLoading: false,
-        isError: false,
-        currentPage: 1,
-        loadingProgress: 0,
-        totalGames: 1,
-        selectedGame: null,
-        gamesArray: [],
-        promptUpdate: true,
-      },
-      search: {
-        nameInput: '',
-        addonsDropdown: '-',
-        voiceDropdown: '-',
-        sortDropdown: 'Order',
-      },
-    };
-
     const store = mockStore(initialState);
     store.dispatch = jest.fn();
 
@@ -86,25 +66,6 @@ describe('UpdateGamePopup', () => {
   });
 
   it('dispatches hidePromptUpdates when Remind Me Later button is clicked', async () => {
-    const initialState = {
-      results: {
-        isLoading: false,
-        isError: false,
-        currentPage: 1,
-        loadingProgress: 0,
-        totalGames: 1,
-        selectedGame: null,
-        gamesArray: [],
-        promptUpdate: true,
-      },
-      search: {
-        nameInput: '',
-        addonsDropdown: '-',
-        voiceDropdown: '-',
-        sortDropdown: 'Order',
-      },
-    };
-
     const store = mockStore(initialState);
     store.dispatch = jest.fn();
 

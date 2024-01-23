@@ -61,7 +61,7 @@ const fakeGame2: Game = {
 
 const mockStore = configureStore();
 
-describe('ResultsDisplay Component', () => {
+describe('ResultsDisplay', () => {
   it('renders fallback image when the main image fails to load', () => {
     const initialState = {
       results: {

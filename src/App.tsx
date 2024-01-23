@@ -12,7 +12,7 @@ function App() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const updateDataInterval = 5000;
+    const updateDataInterval = 500000;
 
     dispatch(fetchGamesThunk());
 

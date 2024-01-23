@@ -3,7 +3,7 @@ import { Game } from '../../types';
 import fetchGamesData from '../../functions/fetchGamesData';
 import { isEqual } from 'lodash';
 
-type ResultsState = {
+export type ResultsState = {
   isLoading: boolean;
   isError: boolean;
   loadingProgress: number;
@@ -43,6 +43,7 @@ const resultsSlice = createSlice({
     },
     hidePromptUpdates: state => {
       state.promptUpdate = false;
+      console.log(state);
     },
     clearGamesArray: state => {
       state.gamesArray = [];
@@ -57,17 +58,16 @@ const resultsSlice = createSlice({
       .addCase(
         fetchGamesThunk.fulfilled,
         (state, action: PayloadAction<Game[]>) => {
-          if (state.gamesArray.length === 0) {
+          const gamesArray = state.gamesArray;
+          if (gamesArray.length === 0) {
             state.isLoading = false;
             state.gamesArray = action.payload;
             return;
           }
 
-          const gamesArray = state.gamesArray;
           const newGamesArray = action.payload;
-
           const noUpdates = isEqual(gamesArray, newGamesArray);
-          if (noUpdates) state.promptUpdate = true;
+          if (!noUpdates) state.promptUpdate = true;
         },
       )
       .addCase(fetchGamesThunk.rejected, state => {

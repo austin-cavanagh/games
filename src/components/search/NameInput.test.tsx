@@ -6,19 +6,19 @@ import '@testing-library/jest-dom';
 import { setNameInput } from '../../state/slices/searchSlice';
 import { userEvent } from '@testing-library/user-event';
 
+const initialState = {
+  search: {
+    nameInput: '',
+    addonsDropdown: '-',
+    voiceDropdown: '-',
+    sortDropdown: 'Order',
+  },
+};
+
 const mockStore = configureStore();
 
 describe('NameInput', () => {
   it('dispatches state updates when user types in input', async () => {
-    const initialState = {
-      search: {
-        nameInput: '',
-        addonsDropdown: '-',
-        voiceDropdown: '-',
-        sortDropdown: 'Order',
-      },
-    };
-
     const store = mockStore(initialState);
     store.dispatch = jest.fn();
 
@@ -36,14 +36,7 @@ describe('NameInput', () => {
   });
 
   it('renders correctly', () => {
-    const store = mockStore({
-      search: {
-        nameInput: '',
-        addonsDropdown: '-',
-        voiceDropdown: '-',
-        sortDropdown: 'Order',
-      },
-    });
+    const store = mockStore(initialState);
 
     render(
       <Provider store={store}>
