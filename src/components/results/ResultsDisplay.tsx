@@ -31,8 +31,6 @@ function ResultsDisplay() {
     // Also sending a dispatch to update currentPage and totalGames state
     dispatch(setCurrentPage(1));
     dispatch(setTotalGames(sortedGames.length));
-
-    // sortedGames.forEach(game => console.log(game.CategorySections.length));
   }, [gamesArray, searchState, dispatch]);
 
   const handleSelectGame = (game: Game) => dispatch(setSelectedGame(game));
@@ -54,6 +52,7 @@ function ResultsDisplay() {
             onClick={() => handleSelectGame(game)}
             className="col-span-1 flex flex-col justify-around rounded-lg p-5 text-center shadow hover:cursor-pointer"
             data-testid="click-game"
+            style={{ maxHeight: '250px' }}
           >
             {/* Image */}
             <img
