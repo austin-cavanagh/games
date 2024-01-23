@@ -11,7 +11,7 @@ function NameInput() {
   return (
     <Combobox as="div" value={nameInput}>
       <label
-        htmlFor="maxPrice"
+        htmlFor="nameInput"
         className="block text-sm font-medium leading-6 text-gray-900"
       >
         Game Name
@@ -22,6 +22,7 @@ function NameInput() {
           onChange={event => handleInputChange(event.target.value)}
           displayValue={() => nameInput}
           placeholder="Game name"
+          id="nameInput"
         />
       </div>
     </Combobox>
