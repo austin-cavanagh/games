@@ -3,25 +3,34 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import SelectedGamePopup from './SelectedGamePopup';
 import '@testing-library/jest-dom';
-// import { CategorySection, GameFile } from '../../types';
 import { Game } from '../../types';
+import { userEvent } from '@testing-library/user-event';
+import { setSelectedGame } from '../../state/slices/resultsSlice';
+
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+global.ResizeObserver = ResizeObserverMock;
+
+const mockStore = configureStore();
+
+const mockGame: Game = {
+  CategorySections: [{ Name: 'fakeCategory' }],
+  GameFiles: [{ FileName: 'fakefile.exe' }],
+  Name: 'Sample Game',
+  Slug: 'sample-game',
+  SupportsAddons: true,
+  SupportsVoice: true,
+} as Game;
 
 describe('SelectedGamePopup', () => {
-  const mockStore = configureStore();
-
   it('correctly renders SelectedGamePopup with correct data', () => {
-    const fakeGame: Game = {
-      CategorySections: [{ Name: 'fakeCategory' }],
-      GameFiles: [{ FileName: 'fakefile.exe' }],
-      Name: 'Sample Game',
-      Slug: 'sample-game',
-      SupportsAddons: true,
-      SupportsVoice: true,
-    } as Game;
-
     const initialState = {
       results: {
-        selectedGame: fakeGame,
+        selectedGame: mockGame,
       },
     };
 
@@ -44,68 +53,40 @@ describe('SelectedGamePopup', () => {
     expect(screen.getByText('Go Back')).toBeInTheDocument();
   });
 
-  // it('correctly renders SelectedGamePopup but with no categories or files', () => {
-  //   // const fakeGame: Game = {
-  //   //   CategorySections: [],
-  //   //   GameFiles: [],
-  //   //   Name: 'Sample Game',
-  //   //   Slug: 'sample-game',
-  //   //   SupportsAddons: true,
-  //   //   SupportsVoice: true,
-  //   //   AddOnSettingsFileFilter: '',
-  //   //   AddOnSettingsFileRemovalFilter: '',
-  //   //   AddOnSettingsFolderFilter: '',
-  //   //   AddOnSettingsStartingFolder: '',
-  //   // };
+  it('rendering without a selected game', () => {
+    const initialState = {
+      results: {
+        selectedGame: null,
+      },
+    };
 
-  //   const initialState = {
-  //     results: {
-  //       selectedGame: fakeGame,
-  //     },
-  //   };
+    const store = mockStore(initialState);
 
-  //   const store = mockStore(initialState);
+    render(
+      <Provider store={store}>
+        <SelectedGamePopup />
+      </Provider>,
+    );
+  });
 
-  //   render(
-  //     <Provider store={store}>
-  //       <SelectedGamePopup />
-  //     </Provider>,
-  //   );
+  it('dispatching setSelectedGame(null)', async () => {
+    const initialState = {
+      results: {
+        selectedGame: mockGame,
+      },
+    };
 
-  //   expect(screen.getByText('Add-Ons')).toBeInTheDocument();
-  //   expect(screen.getByText('Voice Support')).toBeInTheDocument();
-  //   expect(screen.getByText('Categories')).toBeInTheDocument();
-  //   expect(screen.getByText('No Categories')).toBeInTheDocument();
-  //   expect(screen.getByText('Files')).toBeInTheDocument();
-  //   expect(screen.getByText('No Files')).toBeInTheDocument();
-  //   expect(screen.getByText('Slug')).toBeInTheDocument();
-  //   expect(screen.getByText('sample-game')).toBeInTheDocument();
-  //   expect(screen.getByText('Go Back')).toBeInTheDocument();
-  // });
+    const store = mockStore(initialState);
+    store.dispatch = jest.fn();
+
+    render(
+      <Provider store={store}>
+        <SelectedGamePopup />
+      </Provider>,
+    );
+
+    const button = screen.getByText('Go Back');
+    await userEvent.click(button);
+    expect(store.dispatch).toHaveBeenCalledWith(setSelectedGame(null));
+  });
 });
-
-// const fakeGame: Game = {
-//   AddOnSettingsFileFilter: '*.zip',
-//   AddOnSettingsFileRemovalFilter: '*.tmp',
-//   AddOnSettingsFolderFilter: 'bin',
-//   AddOnSettingsStartingFolder: 'addons',
-//   Assets: [],
-//   BundleAssets: true,
-//   CategorySections: [],
-//   DateModified: '2023-01-01T00:00:00Z',
-//   FileParsingRules: [],
-//   GameDetectionHints: [],
-//   GameFiles: [],
-//   ID: 1,
-//   MaxFileSize: 1024 * 1024 * 100, // 100 MB
-//   MaxFreeStorage: 1024 * 1024 * 1024 * 5, // 5 GB
-//   MaxPremiumStorage: 1024 * 1024 * 1024 * 10, // 10 GB
-//   Name: 'Fake Game',
-//   Order: 1,
-//   ProfilerAddOnId: 12345,
-//   Slug: 'fake-game',
-//   SupportsAddons: true,
-//   SupportsNotifications: true,
-//   SupportsVoice: false,
-//   TwitchGameId: 98765,
-// };

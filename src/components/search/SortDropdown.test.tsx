@@ -5,23 +5,23 @@ import configureStore from 'redux-mock-store';
 import SortDropdown from './SortDropdown';
 import { RootState } from '../../state/store';
 import '@testing-library/jest-dom';
-// import { setSortDropdown } from '../../state/slices/searchSlice';
+import { setSortDropdown } from '../../state/slices/searchSlice';
 
 const mockStore = configureStore<Partial<RootState>>();
 
 const options = ['Order', 'A-Z', 'Z-A', 'Game Files'];
 
+const initialState = {
+  search: {
+    nameInput: '',
+    addonsDropdown: '-',
+    voiceDropdown: '-',
+    sortDropdown: 'Order',
+  },
+};
+
 describe('SortDropdown', () => {
   it('renders the dropdown with default value correctly', () => {
-    const initialState = {
-      search: {
-        nameInput: '',
-        addonsDropdown: '-',
-        voiceDropdown: '-',
-        sortDropdown: 'Order',
-      },
-    };
-
     const store = mockStore(initialState);
 
     render(
@@ -34,49 +34,26 @@ describe('SortDropdown', () => {
     expect(screen.getByTestId('sort-chevron-icon')).toBeInTheDocument();
   });
 
-  // it('dispatches set', async () => {
-  //   const initialState = {
-  //     search: {
-  //       nameInput: '',
-  //       addonsDropdown: '-',
-  //       voiceDropdown: '-',
-  //       sortDropdown: 'Order',
-  //     },
-  //   };
+  it('dispatches set', async () => {
+    const store = mockStore(initialState);
+    store.dispatch = jest.fn();
 
-  //   const store = mockStore(initialState);
-  //   store.dispatch = jest.fn();
+    render(
+      <Provider store={store}>
+        <SortDropdown />
+      </Provider>,
+    );
 
-  //   render(
-  //     <Provider store={store}>
-  //       <SortDropdown />
-  //     </Provider>,
-  //   );
+    const sortDropdown = screen.getByTestId('sort-chevron-icon');
+    await userEvent.click(sortDropdown);
+    const option = await screen.findByText('A-Z');
+    await userEvent.click(option);
 
-  //   expect(screen.getByTestId('sort-dropdown')).toHaveValue('Order');
-
-  //   // const sortDropdown = screen.getByTestId('sort-chevron-icon');
-  //   // userEvent.click(sortDropdown);
-
-  //   // const sortByGameFiles = await screen.findByText('Game Files');
-  //   // userEvent.click(sortByGameFiles);
-
-  //   // console.log(store.getActions());
-
-  //   // expect(store.dispatch).toHaveBeenCalledWith(setSortDropdown('Game Files'));
-  // });
+    expect(store.dispatch).toHaveBeenCalledWith(setSortDropdown('A-Z'));
+  });
 
   options.forEach(option => {
     it(`allows the user to select option "${option}"`, async () => {
-      const initialState = {
-        search: {
-          nameInput: '',
-          addonsDropdown: '-',
-          voiceDropdown: '-',
-          sortDropdown: option,
-        },
-      };
-
       const store = mockStore(initialState);
 
       render(

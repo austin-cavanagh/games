@@ -10,17 +10,17 @@ import { setAddonsDropdown } from '../../state/slices/searchSlice';
 const mockStore = configureStore<Partial<RootState>>();
 const options: string[] = ['-', 'Yes', 'No'];
 
+const initialState = {
+  search: {
+    nameInput: '',
+    addonsDropdown: '-',
+    voiceDropdown: '-',
+    sortDropdown: 'Order',
+  },
+};
+
 describe('AddonsDropdown', () => {
   it('renders the dropdown with default value correctly', () => {
-    const initialState = {
-      search: {
-        nameInput: '',
-        addonsDropdown: '-',
-        voiceDropdown: '-',
-        sortDropdown: 'Order',
-      },
-    };
-
     const store = mockStore(initialState);
 
     render(
@@ -36,15 +36,6 @@ describe('AddonsDropdown', () => {
 
   options.forEach(option => {
     it(`allows the user to select option "${option}"`, async () => {
-      const initialState = {
-        search: {
-          nameInput: '',
-          addonsDropdown: option,
-          voiceDropdown: '-',
-          sortDropdown: 'Order',
-        },
-      };
-
       const store = mockStore(initialState);
 
       render(
@@ -61,15 +52,6 @@ describe('AddonsDropdown', () => {
   });
 
   it('dispatches setAddonsDropdown when dropdown input changes', async () => {
-    const initialState = {
-      search: {
-        nameInput: '',
-        addonsDropdown: '-',
-        voiceDropdown: '-',
-        sortDropdown: 'Order',
-      },
-    };
-
     const store = mockStore(initialState);
     store.dispatch = jest.fn();
 
@@ -84,5 +66,24 @@ describe('AddonsDropdown', () => {
     await userEvent.click(optionElement);
 
     expect(store.dispatch).toHaveBeenCalledWith(setAddonsDropdown('Yes'));
+  });
+
+  it('renders with gray-900 color', () => {
+    const initialState = {
+      search: {
+        nameInput: '',
+        addonsDropdown: 'Yes',
+        voiceDropdown: '-',
+        sortDropdown: 'Order',
+      },
+    };
+
+    const store = mockStore(initialState);
+
+    render(
+      <Provider store={store}>
+        <AddonsDropdown />
+      </Provider>,
+    );
   });
 });

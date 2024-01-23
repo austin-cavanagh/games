@@ -4,8 +4,7 @@ import configureStore from 'redux-mock-store';
 import PagesContainer from './PagesContainer';
 import '@testing-library/jest-dom';
 
-const mockStore = configureStore();
-const store = mockStore({
+const initialState = {
   results: {
     isLoading: true,
     isError: false,
@@ -16,7 +15,10 @@ const store = mockStore({
     gamesArray: [],
     promptUpdate: false,
   },
-});
+};
+
+const mockStore = configureStore();
+const store = mockStore(initialState);
 
 describe('PagesContainer', () => {
   it('renders components without crashing', () => {

@@ -3,13 +3,12 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
 import { setSelectedGame } from '../../state/slices/resultsSlice';
+import 'resize-observer-polyfill';
 
 function SelectedGamePopup() {
   const { selectedGame } = useSelector((state: RootState) => state.results);
   const dispatch = useDispatch<AppDispatch>();
   const handleClose = () => dispatch(setSelectedGame(null));
-
-  console.log(selectedGame);
 
   const gameFilesArray = selectedGame?.GameFiles;
   const files =

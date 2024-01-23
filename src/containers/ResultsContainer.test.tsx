@@ -35,7 +35,7 @@ describe('ResultsContainer', () => {
   const mockStore = configureStore();
 
   it('renders ErrorDisplay when isError is true', () => {
-    const store = mockStore({
+    const initialState = {
       results: {
         isLoading: false,
         isError: true,
@@ -46,7 +46,9 @@ describe('ResultsContainer', () => {
         gamesArray: [],
         promptUpdate: false,
       },
-    });
+    };
+
+    const store = mockStore(initialState);
 
     render(
       <Provider store={store}>
@@ -58,7 +60,7 @@ describe('ResultsContainer', () => {
   });
 
   it('renders LoadingDisplay when isLoading is true', () => {
-    const store = mockStore({
+    const initialState = {
       results: {
         isLoading: true,
         isError: false,
@@ -69,7 +71,9 @@ describe('ResultsContainer', () => {
         gamesArray: [],
         promptUpdate: false,
       },
-    });
+    };
+
+    const store = mockStore(initialState);
 
     render(
       <Provider store={store}>
@@ -81,7 +85,7 @@ describe('ResultsContainer', () => {
   });
 
   it('renders ResultsDisplay when isLoading and isError are false', () => {
-    const store = mockStore({
+    const initialState = {
       results: {
         isLoading: false,
         isError: false,
@@ -98,7 +102,9 @@ describe('ResultsContainer', () => {
         voiceDropdown: '-',
         sortDropdown: 'Order',
       },
-    });
+    };
+
+    const store = mockStore(initialState);
 
     render(
       <Provider store={store}>

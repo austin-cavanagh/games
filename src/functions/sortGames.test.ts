@@ -1,5 +1,5 @@
-import sortGames from './sortGames'; // Adjust the import path according to your project structure
-import { Game } from '../types'; // Adjust import paths as necessary
+import sortGames from './sortGames';
+import { Game } from '../types';
 
 const games: Game[] = [
   { ID: 1, Name: 'Game C', Order: 2, GameFiles: [{}, {}] },

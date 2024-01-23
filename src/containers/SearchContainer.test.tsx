@@ -4,15 +4,18 @@ import configureStore from 'redux-mock-store';
 import SearchContainer from './SearchContainer';
 import '@testing-library/jest-dom';
 
-const mockStore = configureStore();
-const store = mockStore({
+const initialState = {
   search: {
     nameInput: '',
     addonsDropdown: '-',
     voiceDropdown: '-',
     sortDropdown: 'Order',
   },
-});
+};
+
+const mockStore = configureStore();
+
+const store = mockStore(initialState);
 
 describe('SearchContainer', () => {
   it('renders components crashing', () => {

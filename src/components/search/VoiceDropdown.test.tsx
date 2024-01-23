@@ -10,17 +10,17 @@ import { setVoiceDropdown } from '../../state/slices/searchSlice';
 const mockStore = configureStore<Partial<RootState>>();
 const options: string[] = ['-', 'Yes', 'No'];
 
+const initialState = {
+  search: {
+    nameInput: '',
+    addonsDropdown: '-',
+    voiceDropdown: '-',
+    sortDropdown: 'Order',
+  },
+};
+
 describe('VoiceDropdown', () => {
   it('renders the dropdown with default value correctly', () => {
-    const initialState = {
-      search: {
-        nameInput: '',
-        addonsDropdown: '-',
-        voiceDropdown: '-',
-        sortDropdown: 'Order',
-      },
-    };
-
     const store = mockStore(initialState);
 
     render(
@@ -36,15 +36,6 @@ describe('VoiceDropdown', () => {
 
   options.forEach(option => {
     it(`allows the user to select option "${option}"`, async () => {
-      const initialState = {
-        search: {
-          nameInput: '',
-          addonsDropdown: option,
-          voiceDropdown: '-',
-          sortDropdown: 'Order',
-        },
-      };
-
       const store = mockStore(initialState);
 
       render(
@@ -61,15 +52,6 @@ describe('VoiceDropdown', () => {
   });
 
   it('dispatches setVoiceDropdown when dropdown input changes', async () => {
-    const initialState = {
-      search: {
-        nameInput: '',
-        addonsDropdown: '-',
-        voiceDropdown: '-',
-        sortDropdown: 'Order',
-      },
-    };
-
     const store = mockStore(initialState);
     store.dispatch = jest.fn();
 

@@ -1,24 +1,25 @@
 import fetchGamesData from './fetchGamesData';
-// import { setLoadingProgress } from '../state/slices/resultsSlice';
 import { Game } from '../types';
 
-// Mock the global fetch
+// Mock global fetch function
 global.fetch = jest.fn();
 
-// Mock dispatch function
+// Mock redux dispatch
 const mockDispatch = jest.fn();
 
-// Prepare mock game data
+// Mock data for successful mock fetch requests
 const mockGamesData: Game[] = [
   { ID: 1, Name: 'Game 1', SupportsAddons: true, SupportsVoice: true },
 ] as Game[];
 
 beforeEach(() => {
+  // Clears all information stored in mocks
   jest.clearAllMocks();
 });
 
 describe('fetchGamesData', () => {
   beforeAll(() => {
+    // TextDecoder is a web api for decoding binary into strings
     global.TextDecoder = jest.fn().mockImplementation(() => ({
       decode: jest
         .fn()
@@ -26,13 +27,13 @@ describe('fetchGamesData', () => {
     }));
   });
 
-  it('successfully fetches game data and dispatches setLoadingProgress', async () => {
-    // Mock the fetch response
+  it('successful fetch and dispatches setLoadingProgress', async () => {
+    // Mock fetch with successful response
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ data: mockGamesData }),
       headers: {
-        get: () => '100', // Simulate Content-Length for progress calculation
+        get: () => '100',
       },
       body: {
         getReader: () => {
@@ -43,9 +44,7 @@ describe('fetchGamesData', () => {
                 done = true;
                 return Promise.resolve({
                   done: false,
-                  value: new Uint8Array([
-                    /* Simulate binary data */
-                  ]),
+                  value: new Uint8Array([]),
                 });
               } else {
                 return Promise.resolve({ done: true, value: undefined });
@@ -56,65 +55,62 @@ describe('fetchGamesData', () => {
       },
     });
 
+    // Dispatch setLoadingProgress
     await fetchGamesData(mockDispatch);
 
-    // Example assuming setLoadingProgress action creator exists and works correctly
+    // Verify setLoadingProgress happened
     expect(mockDispatch).toHaveBeenCalledWith({
       type: 'results/setLoadingProgress',
-      payload: expect.any(Number), // or a specific number if you want to be more precise
+      payload: expect.any(Number),
     });
 
-    // Since it's hard to simulate streaming data accurately in this environment,
-    // you might simplify the test to only ensure the fetch was called and mockDispatch was used.
+    // Verify fetch was called with correct url
     expect(global.fetch).toHaveBeenCalledWith('../../../games.json');
   });
 
-  // Test for when fetch request returns a response not ok
   it('throws an error when fetch fails', async () => {
-    // Mock the fetch and simulate a failed request
+    // Mock fetch with failed response
     (global.fetch as jest.Mock).mockResolvedValueOnce({
-      // Simulate an unsuccessful response
       ok: false,
       statusText: 'Internal Server Error',
     });
 
-    // Attempt to call fetchGamesData and catch the error
+    // Initiate fetch request and force it to error
     try {
       await fetchGamesData(mockDispatch);
-      // If fetchGamesData does not throw, force the test to fail
       throw new Error('fetchGamesData did not throw as expected');
     } catch (error) {
-      // Assert the error type here
-      const typedError = error as Error; // Type assertion to Error
+      const typedError = error as Error;
 
+      // Verify error was thrown
       expect(typedError).toBeInstanceOf(Error);
       expect(typedError.message).toBe('Failed to fetch games data');
     }
 
-    // Ensure that setLoadingProgress was not called since the fetch failed
+    // Verify no dispatches were called
     expect(mockDispatch).not.toHaveBeenCalledWith(expect.any(Function));
 
-    // Optionally, ensure that fetch was called with the correct URL
+    // Verify fetch was called with righ url
     expect(global.fetch).toHaveBeenCalledWith('../../../games.json');
   });
 
   it('throws an error when ReadableStream is not supported', async () => {
-    // Mock fetch to return a response with no body property
+    // Mock fetch where readable stream is not supported
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
-      // This simulates an environment where ReadableStream is not supported
-      body: null, // or 'body' in Response.prototype ? new ReadableStream() : null,
+      // No readable string
+      body: null,
     });
 
-    // Attempt to call fetchGamesData and expect it to throw an error
+    // Verify error
     await expect(fetchGamesData(mockDispatch)).rejects.toThrow(
       'ReadableStream not supported',
     );
 
-    // Ensure that setLoadingProgress was not called since ReadableStream is not supported
+    // Verify no dispatches have been called
     expect(mockDispatch).not.toHaveBeenCalled();
   });
 });
