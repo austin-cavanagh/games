@@ -52,7 +52,7 @@ function ResultsDisplay() {
             onClick={() => handleSelectGame(game)}
             className="col-span-1 flex flex-col justify-around rounded-lg p-5 text-center shadow hover:cursor-pointer"
             data-testid="click-game"
-            style={{ maxHeight: '250px', minHeight: '200px' }}
+            style={{ maxHeight: '250px', minHeight: '160px' }}
           >
             {/* Image */}
             <img
