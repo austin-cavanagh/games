@@ -62,10 +62,12 @@ describe('SortDropdown', () => {
         </Provider>,
       );
 
-      userEvent.click(screen.getByTestId('sort-chevron-icon'));
+      const dropdownElement = await screen.findByTestId('sort-chevron-icon');
+      userEvent.click(dropdownElement);
       const optionElement = await screen.findByText(option);
       userEvent.click(optionElement);
-      expect(screen.getByText(option)).toBeInTheDocument();
+
+      expect(await screen.findByText(option)).toBeInTheDocument();
     });
   });
 });

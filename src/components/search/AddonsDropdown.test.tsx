@@ -34,23 +34,6 @@ describe('AddonsDropdown', () => {
     expect(screen.getByTestId('add-ons-chevron-icon')).toBeInTheDocument();
   });
 
-  options.forEach(option => {
-    it(`allows the user to select option "${option}"`, async () => {
-      const store = mockStore(initialState);
-
-      render(
-        <Provider store={store}>
-          <AddonsDropdown />
-        </Provider>,
-      );
-
-      userEvent.click(screen.getByTestId('add-ons-chevron-icon'));
-      const optionElement = await screen.findByText(option);
-      userEvent.click(optionElement);
-      expect(screen.getByText(option)).toBeInTheDocument();
-    });
-  });
-
   it('dispatches setAddonsDropdown when dropdown input changes', async () => {
     const store = mockStore(initialState);
     store.dispatch = jest.fn();
@@ -85,5 +68,24 @@ describe('AddonsDropdown', () => {
         <AddonsDropdown />
       </Provider>,
     );
+  });
+
+  options.forEach(option => {
+    it(`allows the user to select option "${option}"`, async () => {
+      const store = mockStore(initialState);
+
+      render(
+        <Provider store={store}>
+          <AddonsDropdown />
+        </Provider>,
+      );
+
+      const dropdownElement = await screen.findByTestId('add-ons-chevron-icon');
+      userEvent.click(dropdownElement);
+      const optionElement = await screen.findByText(option);
+      userEvent.click(optionElement);
+
+      expect(await screen.findByText(option)).toBeInTheDocument();
+    });
   });
 });

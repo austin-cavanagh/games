@@ -43,7 +43,6 @@ const resultsSlice = createSlice({
     },
     hidePromptUpdates: state => {
       state.promptUpdate = false;
-      console.log(state);
     },
     clearGamesArray: state => {
       state.gamesArray = [];

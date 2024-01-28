@@ -34,23 +34,6 @@ describe('VoiceDropdown', () => {
     expect(screen.getByTestId('voice-chevron-icon')).toBeInTheDocument();
   });
 
-  options.forEach(option => {
-    it(`allows the user to select option "${option}"`, async () => {
-      const store = mockStore(initialState);
-
-      render(
-        <Provider store={store}>
-          <VoiceDropdown />
-        </Provider>,
-      );
-
-      userEvent.click(screen.getByTestId('voice-chevron-icon'));
-      const optionElement = await screen.findByText(option);
-      userEvent.click(optionElement);
-      expect(screen.getByText(option)).toBeInTheDocument();
-    });
-  });
-
   it('dispatches setVoiceDropdown when dropdown input changes', async () => {
     const store = mockStore(initialState);
     store.dispatch = jest.fn();
@@ -87,5 +70,24 @@ describe('VoiceDropdown', () => {
     );
 
     expect(screen.getByText('Yes')).toBeInTheDocument();
+  });
+
+  options.forEach(option => {
+    it(`allows the user to select option "${option}"`, async () => {
+      const store = mockStore(initialState);
+
+      render(
+        <Provider store={store}>
+          <VoiceDropdown />
+        </Provider>,
+      );
+
+      const dropdownElement = await screen.findByTestId('voice-chevron-icon');
+      userEvent.click(dropdownElement);
+      const optionElement = await screen.findByText(option);
+      userEvent.click(optionElement);
+
+      expect(await screen.findByText(option)).toBeInTheDocument();
+    });
   });
 });
