@@ -20,7 +20,7 @@ const initialState = {
 };
 
 describe('AddonsDropdown', () => {
-  it('renders the dropdown with default value correctly', () => {
+  it('renders the dropdown with default value correctly', async () => {
     const store = mockStore(initialState);
 
     render(
@@ -29,9 +29,11 @@ describe('AddonsDropdown', () => {
       </Provider>,
     );
 
-    expect(screen.getByText('Add-Ons')).toBeInTheDocument();
-    expect(screen.getByText('-')).toBeInTheDocument();
-    expect(screen.getByTestId('add-ons-chevron-icon')).toBeInTheDocument();
+    expect(await screen.findByText('Add-Ons')).toBeInTheDocument();
+    expect(await screen.findByText('-')).toBeInTheDocument();
+    expect(
+      await screen.findByTestId('add-ons-chevron-icon'),
+    ).toBeInTheDocument();
   });
 
   it('dispatches setAddonsDropdown when dropdown input changes', async () => {
@@ -44,7 +46,8 @@ describe('AddonsDropdown', () => {
       </Provider>,
     );
 
-    userEvent.click(screen.getByTestId('add-ons-chevron-icon'));
+    const dropdownElement = await screen.findByTestId('add-ons-chevron-icon');
+    userEvent.click(dropdownElement);
     const optionElement = await screen.findByText('Yes');
     await userEvent.click(optionElement);
 

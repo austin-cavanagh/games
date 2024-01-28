@@ -21,7 +21,7 @@ const initialState = {
 };
 
 describe('SortDropdown', () => {
-  it('renders the dropdown with default value correctly', () => {
+  it('renders the dropdown with default value correctly', async () => {
     const store = mockStore(initialState);
 
     render(
@@ -30,8 +30,8 @@ describe('SortDropdown', () => {
       </Provider>,
     );
 
-    expect(screen.getByText('Sort By: Order')).toBeInTheDocument();
-    expect(screen.getByTestId('sort-chevron-icon')).toBeInTheDocument();
+    expect(await screen.findByText('Sort By: Order')).toBeInTheDocument();
+    expect(await screen.findByTestId('sort-chevron-icon')).toBeInTheDocument();
   });
 
   it('dispatches set', async () => {
@@ -44,10 +44,10 @@ describe('SortDropdown', () => {
       </Provider>,
     );
 
-    const sortDropdown = screen.getByTestId('sort-chevron-icon');
-    await userEvent.click(sortDropdown);
-    const option = await screen.findByText('A-Z');
-    await userEvent.click(option);
+    const dropdownElement = await screen.findByTestId('sort-chevron-icon');
+    userEvent.click(dropdownElement);
+    const optionElement = await screen.findByText('A-Z');
+    await userEvent.click(optionElement);
 
     expect(store.dispatch).toHaveBeenCalledWith(setSortDropdown('A-Z'));
   });

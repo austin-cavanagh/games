@@ -20,7 +20,7 @@ const initialState = {
 };
 
 describe('VoiceDropdown', () => {
-  it('renders the dropdown with default value correctly', () => {
+  it('renders the dropdown with default value correctly', async () => {
     const store = mockStore(initialState);
 
     render(
@@ -29,9 +29,9 @@ describe('VoiceDropdown', () => {
       </Provider>,
     );
 
-    expect(screen.getByText('Voice Support')).toBeInTheDocument();
-    expect(screen.getByText('-')).toBeInTheDocument();
-    expect(screen.getByTestId('voice-chevron-icon')).toBeInTheDocument();
+    expect(await screen.findByText('Voice Support')).toBeInTheDocument();
+    expect(await screen.findByText('-')).toBeInTheDocument();
+    expect(await screen.findByTestId('voice-chevron-icon')).toBeInTheDocument();
   });
 
   it('dispatches setVoiceDropdown when dropdown input changes', async () => {
@@ -44,14 +44,15 @@ describe('VoiceDropdown', () => {
       </Provider>,
     );
 
-    userEvent.click(screen.getByTestId('voice-chevron-icon'));
+    const dropdownElement = await screen.findByTestId('voice-chevron-icon');
+    userEvent.click(dropdownElement);
     const optionElement = await screen.findByText('Yes');
     await userEvent.click(optionElement);
 
     expect(store.dispatch).toHaveBeenCalledWith(setVoiceDropdown('Yes'));
   });
 
-  it('rendering different input other than -', () => {
+  it('rendering different input other than -', async () => {
     const initialState = {
       search: {
         nameInput: '',
@@ -69,7 +70,7 @@ describe('VoiceDropdown', () => {
       </Provider>,
     );
 
-    expect(screen.getByText('Yes')).toBeInTheDocument();
+    expect(await screen.findByText('Yes')).toBeInTheDocument();
   });
 
   options.forEach(option => {

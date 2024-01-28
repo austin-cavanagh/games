@@ -28,14 +28,14 @@ describe('NameInput', () => {
       </Provider>,
     );
 
-    const inputElement = screen.getByPlaceholderText('Game name');
+    const inputElement = await screen.findByPlaceholderText('Game name');
     await userEvent.type(inputElement, 'Skyrim');
 
     expect(store.dispatch).toHaveBeenCalledWith(setNameInput('Skyrim'));
     expect(inputElement).toHaveValue('Skyrim');
   });
 
-  it('renders correctly', () => {
+  it('renders correctly', async () => {
     const store = mockStore(initialState);
 
     render(
@@ -44,7 +44,7 @@ describe('NameInput', () => {
       </Provider>,
     );
 
-    expect(screen.getByText('Game Name')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Game name')).toBeInTheDocument();
+    expect(await screen.findByText('Game Name')).toBeInTheDocument();
+    expect(await screen.findByPlaceholderText('Game name')).toBeInTheDocument();
   });
 });
